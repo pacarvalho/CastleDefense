@@ -95,16 +95,6 @@ class Screen(tk.Tk):
 		cell_in_grid_X = cell_in_view_X + self.current_view_x 
 		cell_in_grid_Y = cell_in_view_Y + self.current_view_y
 
-		print 'xxxxxxxxx'
-		print click_x
-		print click_y
-		print cell_in_view_X
-		print cell_in_view_Y
-		print cell_in_grid_X
-		print cell_in_grid_Y
-		print self.current_view_x + self.num_cells_view_x
-		print self.current_view_y + self.num_cells_view_y
-
 		# If the click is out of bounds
 		if (cell_in_grid_X < 0):
 			cell_in_grid_X = 0
@@ -114,9 +104,6 @@ class Screen(tk.Tk):
 			cell_in_grid_Y = 0
 		if (cell_in_grid_Y > self.current_view_y + self.num_cells_view_y-1):
 			cell_in_grid_Y = self.current_view_y + self.num_cells_view_y-1
-
-		print cell_in_grid_X
-		print cell_in_grid_Y
 
 		# Set this cell in the grid to be highlighted
 		self.grid.set_highlighted(cell_in_grid_X, cell_in_grid_Y)

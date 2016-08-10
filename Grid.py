@@ -28,9 +28,15 @@ class Grid:
 		Sets the cell at the given x,y location to be highlighted
 	'''
 	def set_highlighted(self,x,y):
+		print '***********'
+		print self.highlighted_cell_x
+		print self.highlighted_cell_y
+		print x
+		print y
+
 		# Deselect previous cell if one exists
-		if (self.highlighted_cell_x > 0 and self.highlighted_cell_y > 0):
-			self.cells[self.highlighted_cell_x ][self.highlighted_cell_y].deselect()
+		if (self.highlighted_cell_x >= 0 and self.highlighted_cell_y >= 0):
+			self.cells[self.highlighted_cell_x][self.highlighted_cell_y].deselect()
 
 		# Set new cell to be selected
 		self.highlighted_cell_x = x

@@ -15,7 +15,6 @@ class Tree(EntityBase):
 
 		# default icon
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/tree.gif')
-		self.highlight_icon = ImageTk.PhotoImage(file='entities/icons/tree_highlight.gif')
 
 		# Is the entity currently clicked?
 		self.isClicked = False
@@ -26,11 +25,6 @@ class Tree(EntityBase):
 
 	# Returns the image of the current state
 	def get_icon(self):
-		if(not self.isClicked):
-			return self.default_icon
-		else:
-			return self.highlight_icon
-
 		return self.default_icon
 
 	def get_hitpoints(self):

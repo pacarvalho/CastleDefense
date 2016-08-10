@@ -36,4 +36,21 @@ class EntityBase():
 		''' Sets if the entity is or not selected '''
 		return  
 
+	@abc.abstractmethod
+	def get_blocking(self):
+		''' Returns true if object cannot be walked on '''
+		return 
+
+	@abc.abstractmethod
+	def set_motion_path(self,path):
+		''' Sets the path for motion '''
+		return
+
+	@abc.abstractmethod
+	def get_destination(self, game_cycle):
+		''' Gets the next cell for moving this entity '''
+		return 
+
+
+
 

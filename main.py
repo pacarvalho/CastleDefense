@@ -23,9 +23,13 @@ grid = Grid(manualMapCreator.get_cell_array())
 screen.set_grid(grid)
 
 
+
 # Runs the game
 def run():
 	print "Im Running"
+
+	# Move entities
+	grid.update()
 
 	screen.update_graphics()
 
@@ -33,7 +37,7 @@ def run():
 	screen.update()
 
 	# Calls this function periodically
-	screen.after(5000, lambda: run())	
+	screen.after(200, lambda: run())	
 
 # Calls the run method for the first time
 run()

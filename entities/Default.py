@@ -36,3 +36,15 @@ class Default(EntityBase):
 		''' Sets if the entity is or not selected '''
 		return False
 
+	def get_blocking(self):
+		''' Returns true if object cannot be walked on '''
+		return self.blocking
+
+	def set_motion_path(self,path):
+		''' Sets the path for motion '''
+		pass
+
+	def get_destination(self, game_cycle):
+		''' Gets the next cell for moving this entity '''
+		return []
+

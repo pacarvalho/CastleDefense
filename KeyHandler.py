@@ -9,7 +9,8 @@ class KeyHandler:
 		self.screen = screen
 
 		self.screen.bind("<Key>", self.handler)
-		self.screen.bind("<Button-1>", self.click_handler)
+		self.screen.bind("<Button-1>", self.left_click_handler)
+		self.screen.bind("<Button-2>", self.right_click_handler) # Right Click
 
 	def handler(self,event):
 		# Pressing forward should move field of vision up
@@ -25,9 +26,22 @@ class KeyHandler:
 		# Call the update graphics
 		self.screen.update_graphics()
 
-	def click_handler(self,event):
-		self.screen.get_clicked_cell(event.x, event.y)
+	def left_click_handler(self,event):
+		location = self.screen.get_clicked_cell(event.x, event.y)
+		self.screen.set_clicked_cell(location[0],location[1])
 		
 		# Call the update graphics
 		self.screen.update_graphics()
+
+	def right_click_handler(self,event):
+		location = self.screen.get_clicked_cell(event.x, event.y)
+		self.screen.set_action_cell(location[0],location[1])
+		
+
+
+
+
+
+
+
 

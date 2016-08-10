@@ -7,7 +7,7 @@
 '''
 
 import Tkinter as tk
-
+import math 
 
 class Screen(tk.Tk):
 	def __init__(self, *args, **kwargs):
@@ -37,6 +37,7 @@ class Screen(tk.Tk):
 		# Create the canvas to draw on
 		self.canvas = tk.Canvas(self.frame, width=self.screen_width, height=self.screen_height)
 		self.canvas.place(x=self.screen_width/2 - (self.num_cells_view_x*self.cell_size)/2, y=50)
+
 
 	'''
 		Sets the grid for the game
@@ -82,6 +83,39 @@ class Screen(tk.Tk):
 			self.current_view_x = 0
 		if (self.current_view_x > self.grid.num_cells_x-self.num_cells_view_x):
 			self.current_view_x = self.grid.num_cells_x-self.num_cells_view_x
+
+	'''
+		Gets the cell in the grid from the screen at mouseclick x,y
+	'''
+	def get_clicked_cell(self, click_x, click_y):
+		# Calculate the cell based on the mouse click
+		cell_in_view_X = int(math.floor(click_x/32))
+		cell_in_view_Y = int(math.floor(click_y/32))
+
+		cell_in_grid_X = cell_in_view_X + self.current_view_x 
+		cell_in_grid_Y = cell_in_view_Y + self.current_view_y
+
+		# If the click is out of bounds
+		if (cell_in_grid_X < 0):
+			cell_in_grid_X = 0
+		if (cell_in_grid_X > self.num_cells_view_x):
+			cell_in_grid_X = self.current_view_x + self.num_cells_view_x
+		if (cell_in_grid_Y < 0):
+			cell_in_grid_Y = 0
+		if (cell_in_grid_Y > self.num_cells_view_y):
+			cell_in_grid_Y = self.current_view_y + self.num_cells_view_y
+
+		# Set this cell in the grid to be highlighted
+		self.grid.set_highlighted(cell_in_grid_X, cell_in_grid_Y)
+
+
+
+
+	
+
+
+
+
 
 
 

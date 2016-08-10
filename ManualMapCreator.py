@@ -27,6 +27,8 @@ class ManualMapCreator:
 			self.cellArray[self.map_size-1][i].set_entity(Tree())
 			self.cellArray[i][self.map_size-1].set_entity(Tree())
 
+
+		
 		self.cellArray[5][5].set_entity(Peasant())
 
 	'''

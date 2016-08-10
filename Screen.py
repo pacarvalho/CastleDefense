@@ -38,12 +38,14 @@ class Screen(tk.Tk):
 		self.canvas = tk.Canvas(self.frame, width=self.screen_width, height=self.screen_height)
 		self.canvas.place(x=self.screen_width/2 - (self.num_cells_view_x*self.cell_size)/2, y=50)
 
-
 	'''
 		Sets the grid for the game
 	'''
 	def set_grid(self, grid):
 		self.grid = grid
+
+		# Keep references to all images that can appear on the screen
+		self.canvas_image = [[self.canvas.create_image(x*self.cell_size, y*self.cell_size, anchor=tk.NW, image=self.grid.get_icon(x,y)) for y in range(self.num_cells_view_y)] for x in range(self.num_cells_view_x)]
 
 	'''
 		Updates the game graphics with the correct icons
@@ -55,8 +57,8 @@ class Screen(tk.Tk):
 			count_y = -1
 			for y in range(self.current_view_y,self.current_view_y+self.num_cells_view_y):
 				count_y += 1
-				# TODO: Change this so that it creates on the first run and then updates it. 
-				self.canvas.create_image(count_x*self.cell_size, count_y*self.cell_size, anchor=tk.NW, image=self.grid.get_icon(x,y))
+				self.canvas.itemconfig(self.canvas_image[count_x][count_y],image=self.grid.get_icon(x,y))
+
 
 	'''
 		Moves the screen in the given direction by x cells

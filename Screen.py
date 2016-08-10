@@ -16,8 +16,8 @@ class Screen(tk.Tk):
 		self.title('Castle Defense - By Paulo and Katie')
 
 		# Size of the screen
-		self.screen_width = 900
-		self.screen_height = 500
+		self.screen_width = 1000
+		self.screen_height = 600
 
 		# Create a frame
 		self.frame = tk.Frame(self, width=self.screen_width, height=self.screen_height)

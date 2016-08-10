@@ -52,6 +52,7 @@ class Screen(tk.Tk):
 		Updates the game graphics with the correct icons
 	'''
 	def update_graphics(self):
+		# Update view of World
 		count_x = -1
 		for x in range(self.current_view_x,self.current_view_x+self.num_cells_view_x):
 			count_x += 1
@@ -59,6 +60,9 @@ class Screen(tk.Tk):
 			for y in range(self.current_view_y,self.current_view_y+self.num_cells_view_y):
 				count_y += 1
 				self.canvas.itemconfig(self.canvas_image[count_x][count_y],image=self.grid.get_icon(x,y))
+
+		# Update Menu
+		
 
 
 	'''

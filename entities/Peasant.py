@@ -8,7 +8,7 @@
 from PIL import ImageTk
 from EntityBase import EntityBase
 
-class Peasant:
+class Peasant(EntityBase):
 	def __init__(self):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = True
@@ -44,5 +44,6 @@ class Peasant:
 	def set_selected(self, state):
 		''' Sets if the entity is or not selected '''
 		self.isClicked = state
+		return self.isClicked
 
 

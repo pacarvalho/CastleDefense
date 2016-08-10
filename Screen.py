@@ -106,7 +106,7 @@ class Screen(tk.Tk):
 			cell_in_grid_Y = self.current_view_y + self.num_cells_view_y-1
 
 		# Set this cell in the grid to be highlighted
-		self.grid.set_highlighted(cell_in_grid_X, cell_in_grid_Y)
+		self.grid.set_selected(cell_in_grid_X, cell_in_grid_Y)
 
 
 

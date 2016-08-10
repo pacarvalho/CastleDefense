@@ -6,6 +6,7 @@
 	By Paulo and Katie
 '''
 from PIL import ImageTk
+from EntityBase import EntityBase
 
 class Tree(EntityBase):
 	def __init__(self):

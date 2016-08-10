@@ -46,11 +46,11 @@ class Cell:
 		Selects the given cell
 	'''
 	def select(self):
-		self.entity.set_selected(True)
+		return self.entity.set_selected(True)
 
 	'''
 		Selects the given cell
 	'''
 	def deselect(self):
-		self.entity.set_selected(False)
+		return self.entity.set_selected(False)
 

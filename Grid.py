@@ -14,8 +14,8 @@ class Grid:
 		self.num_cells_x, self.num_cells_y = len(cells), len(cells[0])
 
 		# Save the location of the currently highlighted cell in the grid
-		self.highlighted_cell_x = -1
-		self.highlighted_cell_y = -1
+		self.selected_cell_x = 0
+		self.selected_cell_y = 0
 
 	'''
 		Gets the correct icons from the cells at a specific 
@@ -27,13 +27,16 @@ class Grid:
 	'''
 		Sets the cell at the given x,y location to be highlighted
 	'''
-	def set_highlighted(self,x,y):
-		# Deselect previous cell if one exists
-		if (self.highlighted_cell_x >= 0 and self.highlighted_cell_y >= 0):
-			self.cells[self.highlighted_cell_x][self.highlighted_cell_y].deselect()
+	def set_selected(self,x,y):
+		# Only deselect if the new clicked cell allowed itself to be selected
+		selectConfirmed = self.cells[x][y].select()
+		if (selectConfirmed and not ((x == self.selected_cell_x) and (y == self.selected_cell_y))):
+			# Deselect previous cell if one exists
+			self.cells[self.selected_cell_x][self.selected_cell_y].deselect()
 
-		# Set new cell to be selected
-		self.highlighted_cell_x = x
-		self.highlighted_cell_y = y
-		self.cells[self.highlighted_cell_x][self.highlighted_cell_y].select()
+			# Save the currenlty selected cell
+			self.selected_cell_x = x
+			self.selected_cell_y = y
+
+		
 

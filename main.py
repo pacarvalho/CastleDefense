@@ -11,6 +11,7 @@ from Grid import Grid
 from Cell import Cell
 from KeyHandler import KeyHandler
 from entities.Tree import Tree
+from entities.Peasant import Peasant
 
 
 # Intantiate the screen
@@ -29,6 +30,8 @@ for i in range(100):
 
 for i in range(100):
 	cellArray[9][i].set_entity(Tree())
+
+cellArray[5][5].set_entity(Peasant())
 
 
 # Runs the game

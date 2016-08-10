@@ -60,9 +60,9 @@ class Screen(tk.Tk):
 	'''
 	def move_screen(self, direction):
 		if (direction == 'up'):
-			self.current_view_y -= 2
-		elif (direction == 'down'):
 			self.current_view_y += 2
+		elif (direction == 'down'):
+			self.current_view_y -= 2
 		elif (direction == 'left'):
 			self.current_view_x += 2
 		elif (direction == 'right'):

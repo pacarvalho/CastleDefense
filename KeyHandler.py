@@ -9,6 +9,7 @@ class KeyHandler:
 		self.screen = screen
 
 		self.screen.bind("<Key>", self.handler)
+		self.screen.bind("<Button-1>", self.click_handler)
 
 	def handler(self,event):
 		# Pressing forward should move field of vision up
@@ -21,6 +22,12 @@ class KeyHandler:
 		elif (event.keycode == 8124162):
 			self.screen.move_screen('right')
 
+		# Call the update graphics
+		self.screen.update_graphics()
+
+	def click_handler(self,event):
+		self.screen.get_clicked_cell(event.x, event.y)
+		
 		# Call the update graphics
 		self.screen.update_graphics()
 

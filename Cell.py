@@ -13,6 +13,7 @@ class Cell:
 	def __init__(self):
 		# Contains playing object. Ex: Soldier, wall, etc
 		self.entity = Default()
+		self.isClicked = False
 
 	'''
 		Sets the current entity in this cell
@@ -40,4 +41,20 @@ class Cell:
 		Returns the icon of the entity at its current state
 	'''
 	def get_icon(self):
-		return self.entity.get_icon()
+		if(not self.isClicked):
+			return self.entity.get_default_icon()
+		else:
+			return self.entity.get_highlight_icon()
+
+	'''
+		Selects the given cell
+	'''
+	def select(self):
+		self.isClicked = True
+
+	'''
+		Selects the given cell
+	'''
+	def deselect(self):
+		self.isClicked = False
+

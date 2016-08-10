@@ -18,7 +18,7 @@ class Screen(tk.Tk):
 		self.current_view_y = 10
 		# Number cells in sight
 		self.num_cells_view_x = 25
-		self.num_cells_view_y = 20
+		self.num_cells_view_y = 18
 		# Size of a cell in pixels
 		self.cell_size = 32
 
@@ -28,7 +28,7 @@ class Screen(tk.Tk):
 
 		# Size of the screen
 		self.screen_width = 1000
-		self.screen_height = 600
+		self.screen_height = 800
 
 		# Create a frame
 		self.frame = tk.Frame(self, width=self.screen_width, height=self.screen_height)

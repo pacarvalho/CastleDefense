@@ -41,3 +41,5 @@ class Cell:
 	'''
 	def get_icon(self):
 		return self.entity.get_icon()
+
+	

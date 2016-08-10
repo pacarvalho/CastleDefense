@@ -8,11 +8,8 @@
 
 from Screen import Screen
 from Grid import Grid
-from Cell import Cell
 from KeyHandler import KeyHandler
-from entities.Tree import Tree
-from entities.Peasant import Peasant
-
+from ManualMapCreator import ManualMapCreator
 
 # Intantiate the screen
 screen = Screen()
@@ -21,17 +18,9 @@ screen = Screen()
 keyHandler = KeyHandler(screen)
 
 # Instantiate the grid with its default cells
-cellArray = [[Cell() for x in range(100)] for y in range(100)]
-grid = Grid(cellArray)
+manualMapCreator = ManualMapCreator()
+grid = Grid(manualMapCreator.get_cell_array())
 screen.set_grid(grid)
-
-for i in range(100):
-	cellArray[i][9].set_entity(Tree())
-
-for i in range(100):
-	cellArray[9][i].set_entity(Tree())
-
-cellArray[5][5].set_entity(Peasant())
 
 
 # Runs the game

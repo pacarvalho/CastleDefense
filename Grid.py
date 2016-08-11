@@ -85,7 +85,8 @@ class Grid:
 				return current_path + [n]
 
 			# If neightbor is not already in the path
-			if n not in checked_nodes:
+			# If neighbor is passable
+			if (n not in checked_nodes) and not (self.cells[n[0]][n[1]].get_blocking()):
 				path = deepcopy(current_path) + [n]
 				checked_nodes += [n]
 				queue.put((n,path,checked_nodes))
@@ -134,7 +135,7 @@ class Grid:
 
 		# Get the list of currenlty selected cells
 		self.get_selected()
-		
+
 		self.game_cycle += 1
 		self.update_position()
 

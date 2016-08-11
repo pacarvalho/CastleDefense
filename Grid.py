@@ -35,6 +35,9 @@ class Grid:
 		Sets the cell at the given x,y location to be highlighted
 	'''
 	def set_selected(self,x,y):
+		# Update the list of selected obejects
+		self.get_selected()
+		
 		# Only deselect if the new clicked cell allowed itself to be selected
 		selectConfirmed = self.cells[x][y].select()
 		if (selectConfirmed and ((x,y) not in self.selected_cells.keys())):

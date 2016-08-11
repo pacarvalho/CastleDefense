@@ -58,7 +58,7 @@ class Screen(tk.Tk):
 		self.canvas_menu = self.canvas.create_image(0, self.num_cells_view_y*32, anchor=tk.NW, image=self.menu.get_icon())
 		
 		# Set initial menu text
-		self.menu_text = self.canvas.create_text(self.screen_width/2, self.num_cells_view_y*32 + 32, text = "Welcome to Castle Defense !", font=("Helvetica", 18) )
+		self.menu_text = self.canvas.create_text(self.screen_width/2.7, self.num_cells_view_y*32 + 20, anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
 
 	'''
 		Updates the game graphics with the correct icons
@@ -73,8 +73,16 @@ class Screen(tk.Tk):
 				count_y += 1
 				self.canvas.itemconfig(self.canvas_image[count_x][count_y],image=self.grid.get_icon(x,y))
 
+		# Update the menu
+		self.update_menu()
+
+	'''
+		Updates the game menu with the correct information
+	'''
+	def update_menu(self):
 		# Update Menu Text
-		# self.canvas.itemconfig(self.menu_text, text= self.menu.get_text())
+		selected_cells = self.grid.get_selected()
+		self.canvas.itemconfig(self.menu_text, text=self.menu.get_text(selected_cells))
 
 	'''
 		Moves the screen in the given direction by x cells

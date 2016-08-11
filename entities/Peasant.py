@@ -15,6 +15,9 @@ class Peasant(EntityBase):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = True
 
+		# Entity description
+		self.description = "Peasant"
+
 		# Icons
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/peasant.gif')
 		self.highlight_icon = ImageTk.PhotoImage(file='entities/icons/peasant_highlight.gif')
@@ -47,6 +50,10 @@ class Peasant(EntityBase):
 	def get_hitpoints(self):
 		''' Returns the current hitpoints of the entity '''
 		return 100
+
+	def get_description(self):
+		''' Returns the current hitpoints of the entity '''
+		return self.description
 
 	def get_selected(self):
 		''' Returns true if entity is currently selected '''

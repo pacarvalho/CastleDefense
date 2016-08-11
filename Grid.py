@@ -22,8 +22,6 @@ class Grid:
 		# Keeps track of the current game cycle
 		self.game_cycle = 0
 
-		# 
-
 	'''
 		Gets the correct icons from the cells at a specific 
 		x,y coordinate in the grid
@@ -137,6 +135,8 @@ class Grid:
 			for y in range(self.num_cells_y):
 				if (self.cells[x][y].get_selected()):
 					self.selected_cells[(x,y)] = self.cells[x][y]
+
+		return self.selected_cells
 
 
 	'''

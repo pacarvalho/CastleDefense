@@ -13,6 +13,9 @@ class Tree(EntityBase):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = True
 
+		# Entity description
+		self.description = "Tree"
+
 		# default icon
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/tree.gif')
 
@@ -30,6 +33,10 @@ class Tree(EntityBase):
 	def get_hitpoints(self):
 		''' Returns the current hitpoints of the entity '''
 		return 150
+
+	def get_description(self):
+		''' Returns the current hitpoints of the entity '''
+		return self.description
 
 	def get_selected(self):
 		''' Returns true if entity is currently selected '''

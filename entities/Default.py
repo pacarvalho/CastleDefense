@@ -13,6 +13,9 @@ class Default(EntityBase):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = False
 
+		# Entity description
+		self.description = ""
+
 		# default icon
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/grass.gif')
 
@@ -27,6 +30,10 @@ class Default(EntityBase):
 	def get_hitpoints(self):
 		''' Returns the current hitpoints of the entity '''
 		return 100
+
+	def get_description(self):
+		''' Returns the current hitpoints of the entity '''
+		return self.description
 
 	def get_selected(self):
 		''' Returns true if entity is currently selected '''

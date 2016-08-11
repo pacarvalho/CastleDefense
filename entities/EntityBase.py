@@ -27,6 +27,11 @@ class EntityBase():
 		return 
 
 	@abc.abstractmethod
+	def get_description(self):
+		''' Returns the description of the entity '''
+		return 
+
+	@abc.abstractmethod
 	def get_selected(self):
 		''' Returns true if entity is currently selected '''
 		return 

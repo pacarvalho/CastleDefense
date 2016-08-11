@@ -73,8 +73,18 @@ class Screen(tk.Tk):
 				count_y += 1
 				self.canvas.itemconfig(self.canvas_image[count_x][count_y],image=self.grid.get_icon(x,y))
 
+		# Update the menu
+		self.update_menu
+
+	'''
+		Updates the game menu with the correct information
+	'''
+	def update_menu(self):
+		print 'Im here?'
 		# Update Menu Text
-		# self.canvas.itemconfig(self.menu_text, text= self.menu.get_text())
+		selected_cells = self.grid.get_selected()
+		# self.canvas.itemconfig(self.menu_text, text=self.menu.get_text(selected_cells))
+		self.menu_text.set(self.menu.get_text(selected_cells))
 
 	'''
 		Moves the screen in the given direction by x cells

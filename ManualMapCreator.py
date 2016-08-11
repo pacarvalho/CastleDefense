@@ -13,7 +13,7 @@ class ManualMapCreator:
 	def __init__(self):
 
 		# Maps are always square
-		self.map_size = 200
+		self.map_size = 100
 
 		# Stores the map
 		self.cellArray = [[Cell() for x in range(self.map_size)] for y in range(self.map_size)]

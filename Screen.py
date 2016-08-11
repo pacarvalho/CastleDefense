@@ -109,9 +109,22 @@ class Screen(tk.Tk):
 		if (cell_in_grid_Y > self.current_view_y + self.num_cells_view_y-1):
 			cell_in_grid_Y = self.current_view_y + self.num_cells_view_y-1
 
-		# Set this cell in the grid to be highlighted
-		self.grid.set_selected(cell_in_grid_X, cell_in_grid_Y)
+		return (cell_in_grid_X,cell_in_grid_Y)
+		
 
+	'''
+		Sets a given cell as selected
+	'''
+	def set_clicked_cell(self, cell_x, cell_y):
+		# Set this cell in the grid to be highlighted
+		self.grid.set_selected(cell_x, cell_y)
+
+	'''
+		Set a given cell with an action
+	'''
+	def set_action_cell(self, cell_x, cell_y):
+		# Set this cell in the grid to be highlighted
+		self.grid.set_action(cell_x, cell_y)
 
 
 

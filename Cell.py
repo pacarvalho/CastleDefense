@@ -8,6 +8,7 @@
 '''
 
 from entities.Default import Default
+from copy import deepcopy
 
 class Cell:
 	def __init__(self):
@@ -19,6 +20,12 @@ class Cell:
 	'''
 	def set_entity(self, entity):
 		self.entity = entity
+
+	'''
+		Gets the current entity in this cell
+	'''
+	def get_entity(self):
+		return self.entity
 
 	'''
 		Deletes the current entity on this cell
@@ -53,4 +60,22 @@ class Cell:
 	'''
 	def deselect(self):
 		return self.entity.set_selected(False)
+
+	'''
+		Sets the path that the underlying entity should follow
+	'''
+	def set_motion_path(self, path):
+		self.entity.set_motion_path(path)
+
+	'''
+		Returns the destination from the entity
+	'''
+	def get_destination(self, game_cycle):
+		return self.entity.get_destination(game_cycle)
+
+	'''
+		Returns if the underlying entity is passable
+	'''
+	def get_blocking(self):
+		return self.entity.get_blocking()
 

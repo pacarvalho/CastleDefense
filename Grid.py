@@ -5,6 +5,9 @@
 
 	by Katie and Paulo
 '''
+from Queue import Queue
+from copy import deepcopy
+
 class Grid:
 	def __init__(self, cells):
 		# Array of cells (2D Array)
@@ -16,6 +19,9 @@ class Grid:
 		# Save the location of the currently highlighted cell in the grid
 		self.selected_cell_x = 0
 		self.selected_cell_y = 0
+
+		# Keeps track of the current game cycle
+		self.game_cycle = 0
 
 	'''
 		Gets the correct icons from the cells at a specific 
@@ -37,6 +43,102 @@ class Grid:
 			# Save the currenlty selected cell
 			self.selected_cell_x = x
 			self.selected_cell_y = y
+
+	'''
+		To be decided!!!
+	'''
+	def set_action(self,x,y):
+		path = self.calculate_path(self.selected_cell_x,self.selected_cell_y,x,y)
+
+		print path
+
+		self.cells[self.selected_cell_x][self.selected_cell_y].set_motion_path(path)
+
+
+	'''
+		Calculates a clear path between two locations on the grid
+		A clear path is one that contains no "unpassable" entities
+	'''
+	def calculate_path(self,cur_x,cur_y,des_x,des_y):
+		queue = Queue()
+
+		# Add starting cell to the queue
+		queue.put(((cur_x,cur_y),[(cur_x,cur_y)],[(cur_x,cur_y)]))
+
+		return self.helper_calculate_path(des_x,des_y,queue)
+
+	'''
+		calculate_path helper
+	'''
+	def helper_calculate_path(self,des_x,des_y,queue):
+		current = queue.get()
+		current_node = current[0]
+		current_path = current[1]
+		checked_nodes = current[2]
+
+		current_neighbors = self.get_neighbors(current_node[0],current_node[1])
+		for n in current_neighbors:
+			# If we have found the destination
+			if ((n[0] == des_x) and (n[1] == des_y)):
+				return current_path + [n]
+
+			# If neightbor is not already in the path
+			if n not in checked_nodes:
+				path = deepcopy(current_path) + [n]
+				checked_nodes += [n]
+				queue.put((n,path,checked_nodes))
+
+		return self.helper_calculate_path(des_x,des_y,queue)
+
+
+	'''
+		Returns the direct neighbors of a cell
+
+		Returns as coordinates
+	'''
+	def get_neighbors(self, cell_x, cell_y):
+		# Keeps list of neighbbors
+		neighbors = []
+		for dx in range(-1,2):
+			# Neighbors have to be within the grid
+			if ((cell_x + dx)  < self.num_cells_x) and ((cell_x + dx) > 0):
+				for dy in range(-1,2):
+					# Do not include itself as a neighbor
+					if not ((dx == 0) and (dy == 0)):
+						if ((cell_y + dy)  < self.num_cells_y) and ((cell_y + dy) > 0):
+							neighbors += [(cell_x + dx,cell_y + dy)]
+
+		return neighbors
+
+
+	'''
+		Updates the overall game state
+	'''
+	def update(self):
+		self.game_cycle += 1
+
+		self.update_position()
+
+	'''
+		Moves all entities one motion step
+
+		Polls the entity to determine if its time for it to move.
+	'''
+	def update_position(self):
+		for cellArray in self.cells:
+			for cell in cellArray:
+				# Check if object should move
+				next_pos = cell.get_destination(self.game_cycle)
+
+				if len(next_pos) > 0:
+					isBlocking = self.cells[next_pos[0]][next_pos[1]].get_blocking()
+					if not isBlocking:
+						self.cells[next_pos[0]][next_pos[1]].set_entity(cell.get_entity())
+						cell.delete_entity()
+
+
+
+
 
 		
 

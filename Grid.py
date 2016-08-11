@@ -33,14 +33,16 @@ class Grid:
 
 	'''
 		Sets the cell at the given x,y location to be highlighted
+
+		isMultiple - When set to true does not deselect currently selected
 	'''
-	def set_selected(self,x,y):
+	def set_selected(self,x,y,isMultiple):
 		# Update the list of selected obejects
 		self.get_selected()
-		
+
 		# Only deselect if the new clicked cell allowed itself to be selected
 		selectConfirmed = self.cells[x][y].select()
-		if (selectConfirmed and ((x,y) not in self.selected_cells.keys())):
+		if (selectConfirmed and ((x,y) not in self.selected_cells.keys()) and not isMultiple):
 			for cell in self.selected_cells.values():
 				# Deselect previous cell if one exists
 				# TODO: Implement this so it allows for selecting multiple objects
@@ -48,9 +50,15 @@ class Grid:
 
 
 	'''
-		To be decided!!!
+		Executes an action with the currently selected cells
+
+		Possible actions:
+			'move' = Sets the entity on a path
+
+		TODO: Add actions types!
 	'''
 	def set_action(self,x,y):
+
 		# Update the list of selected obejects
 		self.get_selected()
 

@@ -10,6 +10,7 @@ class KeyHandler:
 
 		self.screen.bind("<Key>", self.handler)
 		self.screen.bind("<Button-1>", self.left_click_handler)
+		self.screen.bind("<Shift-Button-1>", self.left_shift_click_handler)
 		self.screen.bind("<Button-2>", self.right_click_handler) # Right Click
 
 	def handler(self,event):
@@ -27,8 +28,17 @@ class KeyHandler:
 		self.screen.update_graphics()
 
 	def left_click_handler(self,event):
+		# Standard click (Without Shift Key)
 		location = self.screen.get_clicked_cell(event.x, event.y)
-		self.screen.set_clicked_cell(location[0],location[1])
+		self.screen.set_clicked_cell(location[0],location[1], False)
+		
+		# Call the update graphics
+		self.screen.update_graphics()
+
+	def left_shift_click_handler(self,event):
+		# Standard click (With Shift Key)
+		location = self.screen.get_clicked_cell(event.x, event.y)
+		self.screen.set_clicked_cell(location[0],location[1], True)
 		
 		# Call the update graphics
 		self.screen.update_graphics()

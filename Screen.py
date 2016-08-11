@@ -126,9 +126,9 @@ class Screen(tk.Tk):
 	'''
 		Sets a given cell as selected
 	'''
-	def set_clicked_cell(self, cell_x, cell_y):
+	def set_clicked_cell(self, cell_x, cell_y, isMultiple):
 		# Set this cell in the grid to be highlighted
-		self.grid.set_selected(cell_x, cell_y)
+		self.grid.set_selected(cell_x, cell_y, isMultiple)
 
 	'''
 		Set a given cell with an action

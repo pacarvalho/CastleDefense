@@ -35,6 +35,9 @@ class Grid:
 		Sets the cell at the given x,y location to be highlighted
 	'''
 	def set_selected(self,x,y):
+		# Update the list of selected obejects
+		self.get_selected()
+		
 		# Only deselect if the new clicked cell allowed itself to be selected
 		selectConfirmed = self.cells[x][y].select()
 		if (selectConfirmed and ((x,y) not in self.selected_cells.keys())):
@@ -43,14 +46,14 @@ class Grid:
 				# TODO: Implement this so it allows for selecting multiple objects
 				cell.deselect()
 
-		# Update the list of selected obejects
-		self.get_selected()
-
 
 	'''
 		To be decided!!!
 	'''
 	def set_action(self,x,y):
+		# Update the list of selected obejects
+		self.get_selected()
+
 		for coord,cell in self.selected_cells.items():
 			path = self.calculate_path(coord[0],coord[1],x,y)
 
@@ -85,7 +88,8 @@ class Grid:
 				return current_path + [n]
 
 			# If neightbor is not already in the path
-			if n not in checked_nodes:
+			# If neighbor is passable
+			if (n not in checked_nodes) and not (self.cells[n[0]][n[1]].get_blocking()):
 				path = deepcopy(current_path) + [n]
 				checked_nodes += [n]
 				queue.put((n,path,checked_nodes))
@@ -134,7 +138,7 @@ class Grid:
 
 		# Get the list of currenlty selected cells
 		self.get_selected()
-		
+
 		self.game_cycle += 1
 		self.update_position()
 

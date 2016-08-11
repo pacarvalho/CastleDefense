@@ -18,6 +18,12 @@ class Default(EntityBase):
 
 		# default icon
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/grass.gif')
+		
+		# All available actions
+		self.available_actions = []
+
+		# Can construct the following buildings
+		self.available_buildings = []
 
 	# Returns the action range of this entity
 	def get_range(self):
@@ -54,6 +60,10 @@ class Default(EntityBase):
 	def get_destination(self, game_cycle):
 		''' Gets the next cell for moving this entity '''
 		return []
+
+	def get_available_actions(self):
+		''' Returns a list of strings with the available actions '''
+		return self.available_actions
 
 
 

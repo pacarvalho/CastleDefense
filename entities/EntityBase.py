@@ -56,6 +56,13 @@ class EntityBase():
 		''' Gets the next cell for moving this entity '''
 		return 
 
+
+	@abc.abstractmethod
+	def get_available_actions(self):
+		''' Returns a list of strings with the available actions '''
+		return
+
+
 	
 
 

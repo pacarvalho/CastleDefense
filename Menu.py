@@ -37,3 +37,28 @@ class Menu	:
 
 		# Else dont display anything
 		return ""
+
+	def get_available_actions(self, selected_cells):
+		# Only continue if there are cells selected
+		if len(selected_cells) == 0:
+			return []
+
+		# Get a list of lists for available actions
+		valid_actions = [cell.get_available_actions() for cell in selected_cells.values()]
+
+		if len(valid_actions) > 1:
+			# Get the intersection of the sets
+			result = set(valid_actions[0])
+			for c in valid_actions[1:]:
+				result.intersection_update(c)
+			return list(result)
+    	
+		return valid_actions[0]
+
+
+
+
+
+
+
+

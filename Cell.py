@@ -85,3 +85,9 @@ class Cell:
 	def get_selected(self):
 		return self.entity.get_selected()
 
+	'''
+		Returns a list of the available actions
+	'''
+	def get_available_actions(self):
+		return self.entity.get_available_actions()
+

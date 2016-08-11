@@ -84,6 +84,8 @@ class Screen(tk.Tk):
 		selected_cells = self.grid.get_selected()
 		self.canvas.itemconfig(self.menu_text, text=self.menu.get_text(selected_cells))
 
+		print self.menu.get_available_actions(selected_cells)
+
 	'''
 		Moves the screen in the given direction by x cells
 	'''

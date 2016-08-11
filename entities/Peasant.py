@@ -34,6 +34,12 @@ class Peasant(EntityBase):
 		# Speed of the entity in game iterations
 		self.speed = 1
 
+		# All available actions
+		self.available_actions = ['move','build','attack']
+
+		# Can construct the following buildings
+		self.available_buildings = ['house','wall']
+
 	# Returns the action range of this entity
 	def get_range(self):
 		return 1
@@ -82,6 +88,11 @@ class Peasant(EntityBase):
 			self.last_motion_cycle = game_cycle
 			return self.motion_path.popleft()
 		return []
+
+	def get_available_actions(self):
+		''' Returns a list of strings with the available actions '''
+		return self.available_actions
+
 
 
 

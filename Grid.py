@@ -90,7 +90,6 @@ class Grid:
 
 		return self.helper_calculate_path(des_x,des_y,queue)
 
-
 	'''
 		Returns the direct neighbors of a cell
 
@@ -110,13 +109,11 @@ class Grid:
 
 		return neighbors
 
-
 	'''
 		Updates the overall game state
 	'''
 	def update(self):
 		self.game_cycle += 1
-
 		self.update_position()
 
 	'''

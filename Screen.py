@@ -18,7 +18,7 @@ class Screen(tk.Tk):
 		self.current_view_y = 10
 		# Number cells in sight
 		self.num_cells_view_x = 25
-		self.num_cells_view_y = 18
+		self.num_cells_view_y = 17
 		# Size of a cell in pixels
 		self.cell_size = 32
 
@@ -36,7 +36,7 @@ class Screen(tk.Tk):
 
 		# Create the canvas to draw on
 		self.canvas = tk.Canvas(self.frame, width=self.screen_width, height=self.screen_height)
-		self.canvas.place(x=self.screen_width/2 - (self.num_cells_view_x*self.cell_size)/2, y=50)
+		self.canvas.place(x=self.screen_width/2 - (self.num_cells_view_x*self.cell_size)/2, y=7)
 
 
 	'''
@@ -47,6 +47,16 @@ class Screen(tk.Tk):
 
 		# Keep references to all images that can appear on the screen
 		self.canvas_image = [[self.canvas.create_image(x*self.cell_size, y*self.cell_size, anchor=tk.NW, image=self.grid.get_icon(x,y)) for y in range(self.num_cells_view_y)] for x in range(self.num_cells_view_x)]
+
+	'''
+		Sets the grid for the game
+	'''
+	def set_menu(self, menu):
+		self.menu = menu
+
+		# Keep references to all images that can appear on the screen
+		self.canvas_menu = self.canvas.create_image(0, self.num_cells_view_y*32, anchor=tk.NW, image=self.menu.get_icon())
+		# self.rectangle = self.canvas.create_rectangle(0, 600, 10, 610, fill = "red")
 
 	'''
 		Updates the game graphics with the correct icons
@@ -62,8 +72,7 @@ class Screen(tk.Tk):
 				self.canvas.itemconfig(self.canvas_image[count_x][count_y],image=self.grid.get_icon(x,y))
 
 		# Update Menu
-		
-
+		# self.canvas.itemconfig(self.canvas_menu,image=self.grid.get_icon(5,5))
 
 	'''
 		Moves the screen in the given direction by x cells

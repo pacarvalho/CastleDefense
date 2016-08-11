@@ -8,6 +8,7 @@
 
 from Screen import Screen
 from Grid import Grid
+from Menu import Menu
 from KeyHandler import KeyHandler
 from ManualMapCreator import ManualMapCreator
 
@@ -22,7 +23,9 @@ manualMapCreator = ManualMapCreator()
 grid = Grid(manualMapCreator.get_cell_array())
 screen.set_grid(grid)
 
-
+# Instatiate the menu with default values
+menu = Menu()
+screen.set_menu(Menu())
 
 # Runs the game
 def run():

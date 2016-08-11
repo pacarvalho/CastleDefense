@@ -79,3 +79,9 @@ class Cell:
 	def get_blocking(self):
 		return self.entity.get_blocking()
 
+	'''
+		Returns if this cell is currently selected
+	'''
+	def get_selected(self):
+		return self.entity.get_selected()
+

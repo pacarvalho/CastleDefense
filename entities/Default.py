@@ -30,11 +30,11 @@ class Default(EntityBase):
 
 	def get_selected(self):
 		''' Returns true if entity is currently selected '''
-		return self.isClicked
+		return False
 
 	def set_selected(self, state):
 		''' Sets if the entity is or not selected '''
-		return False
+		return True
 
 	def get_blocking(self):
 		''' Returns true if object cannot be walked on '''
@@ -47,4 +47,6 @@ class Default(EntityBase):
 	def get_destination(self, game_cycle):
 		''' Gets the next cell for moving this entity '''
 		return []
+
+
 

@@ -51,6 +51,8 @@ class EntityBase():
 		''' Gets the next cell for moving this entity '''
 		return 
 
+	
+
 
 
 

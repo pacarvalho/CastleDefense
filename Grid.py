@@ -16,12 +16,13 @@ class Grid:
 		# Save the size of the grid
 		self.num_cells_x, self.num_cells_y = len(cells), len(cells[0])
 
-		# Save the location of the currently highlighted cell in the grid
-		self.selected_cell_x = 0
-		self.selected_cell_y = 0
+		# Saves list of currently selected cells
+		self.selected_cells = {}
 
 		# Keeps track of the current game cycle
 		self.game_cycle = 0
+
+		# 
 
 	'''
 		Gets the correct icons from the cells at a specific 
@@ -36,23 +37,24 @@ class Grid:
 	def set_selected(self,x,y):
 		# Only deselect if the new clicked cell allowed itself to be selected
 		selectConfirmed = self.cells[x][y].select()
-		if (selectConfirmed and not ((x == self.selected_cell_x) and (y == self.selected_cell_y))):
-			# Deselect previous cell if one exists
-			self.cells[self.selected_cell_x][self.selected_cell_y].deselect()
+		if (selectConfirmed and ((x,y) not in self.selected_cells.keys())):
+			for cell in self.selected_cells.values():
+				# Deselect previous cell if one exists
+				# TODO: Implement this so it allows for selecting multiple objects
+				cell.deselect()
 
-			# Save the currenlty selected cell
-			self.selected_cell_x = x
-			self.selected_cell_y = y
+		# Update the list of selected obejects
+		self.get_selected()
+
 
 	'''
 		To be decided!!!
 	'''
 	def set_action(self,x,y):
-		path = self.calculate_path(self.selected_cell_x,self.selected_cell_y,x,y)
+		for coord,cell in self.selected_cells.items():
+			path = self.calculate_path(coord[0],coord[1],x,y)
 
-		print path
-
-		self.cells[self.selected_cell_x][self.selected_cell_y].set_motion_path(path)
+			cell.set_motion_path(path)
 
 
 	'''
@@ -110,9 +112,29 @@ class Grid:
 		return neighbors
 
 	'''
+		Returns the cells that are currently selected
+
+		Returns an array with the selected cells
+	'''
+	def get_selected(self):
+		# Empty the list
+		self.selected_cells = {}
+
+		# Go through all cells and add to dictionary the selected ones
+		for x in range(self.num_cells_x):
+			for y in range(self.num_cells_y):
+				if (self.cells[x][y].get_selected()):
+					self.selected_cells[(x,y)] = self.cells[x][y]
+
+
+	'''
 		Updates the overall game state
 	'''
 	def update(self):
+
+		# Get the list of currenlty selected cells
+		self.get_selected()
+		
 		self.game_cycle += 1
 		self.update_position()
 

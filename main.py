@@ -29,8 +29,6 @@ screen.set_menu(Menu())
 
 # Runs the game
 def run():
-	print "Im Running"
-
 	# Move entities
 	grid.update()
 

@@ -43,14 +43,14 @@ class Grid:
 				# TODO: Implement this so it allows for selecting multiple objects
 				cell.deselect()
 
-		# Update the list of selected obejects
-		self.get_selected()
-
 
 	'''
 		To be decided!!!
 	'''
 	def set_action(self,x,y):
+		# Update the list of selected obejects
+		self.get_selected()
+
 		for coord,cell in self.selected_cells.items():
 			path = self.calculate_path(coord[0],coord[1],x,y)
 

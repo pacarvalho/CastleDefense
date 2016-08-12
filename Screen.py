@@ -46,7 +46,6 @@ class Screen(tk.Tk):
 		self.menu_canvas = tk.Canvas(self.frame, width=self.num_cells_view_x*self.cell_size, height=self.num_cells_view_y*self.cell_size)
 		self.menu_canvas.place(x=self.screen_x_offset, y=self.screen_y_offset + self.num_cells_view_y*self.cell_size)
 
-
 	'''
 		Sets the grid for the game
 	'''
@@ -66,13 +65,13 @@ class Screen(tk.Tk):
 		self.menu_on_canvas = self.menu_canvas.create_image(0, 0, anchor=tk.NW, image=self.menu.get_icon())
 		
 		# Set initial menu text
-		self.menu_text = self.menu_canvas.create_text(self.cell_size, self.cell_size + 20, anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
+		self.menu_text = self.menu_canvas.create_text(self.cell_size*9.5 + 13, self.cell_size/2 , anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
 		
 		# Set control menu
 		self.control_menu = self.menu.get_control_menu()
 		
 		# Variables for configuring the display of the buttons
-		init_x = self.screen_width/1.52
+		init_x = self.screen_width/1.52 + 4
 		init_y = self.num_cells_view_y*self.cell_size + 19
 		btn_width = self.cell_size*1.8
 		btn_height = self.cell_size
@@ -161,8 +160,7 @@ class Screen(tk.Tk):
 		if (cell_in_grid_Y > self.current_view_y + self.num_cells_view_y-1):
 			cell_in_grid_Y = self.current_view_y + self.num_cells_view_y-1
 
-		return (cell_in_grid_X,cell_in_grid_Y)
-		
+		return (cell_in_grid_X,cell_in_grid_Y)		
 
 	'''
 		Sets a given cell as selected

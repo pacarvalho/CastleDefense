@@ -15,13 +15,13 @@ from ManualMapCreator import ManualMapCreator
 # Intantiate the screen
 screen = Screen()
 
+# Instantiate the key handler
+keyHandler = KeyHandler(screen)
+
 # Instantiate the grid with its default cells
 manualMapCreator = ManualMapCreator()
 grid = Grid(manualMapCreator.get_cell_array())
 screen.set_grid(grid)
-
-# Instantiate the key handler
-keyHandler = KeyHandler(screen)
 
 # Instatiate the menu with default values
 menu = Menu()

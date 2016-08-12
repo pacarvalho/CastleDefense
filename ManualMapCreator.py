@@ -8,6 +8,7 @@
 from entities.Default import Default
 from entities.Tree import Tree
 from entities.Peasant import Peasant
+from entities.Wall import Wall
 from Cell import Cell
 
 class ManualMapCreator:
@@ -38,6 +39,10 @@ class ManualMapCreator:
 			self.cellArray[i][20].set_entity(Tree())
 		self.cellArray[10][15].set_entity(Default())
 		self.cellArray[13][13].set_entity(Peasant())
+
+		# Add a line of wall
+		for i in range(5,30):
+			self.cellArray[22][i].set_entity(Wall())
 
 
 		# Add some peasants

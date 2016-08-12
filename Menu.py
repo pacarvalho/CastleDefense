@@ -6,6 +6,7 @@
 	by Katie and Paulo
 '''
 from PIL import ImageTk
+from Control_Menu import Control_Menu
 
 class Menu	:
 	def __init__(self):
@@ -13,6 +14,7 @@ class Menu	:
 		self.menu_icon = ImageTk.PhotoImage(file='entities/icons/menu.gif')
 		self.display_init_text = True
 		self.default_text = "Welcome to Castle Defense !"
+		self.control_menu = Control_Menu()
 
 	def get_icon(self):
 		return self.menu_icon
@@ -54,6 +56,9 @@ class Menu	:
 			return list(result)
     	
 		return valid_actions[0]
+
+	def get_control_menu(self):
+		return self.control_menu
 
 
 

@@ -58,7 +58,23 @@ class Screen(tk.Tk):
 		self.canvas_menu = self.canvas.create_image(0, self.num_cells_view_y*32, anchor=tk.NW, image=self.menu.get_icon())
 		
 		# Set initial menu text
-		self.menu_text = self.canvas.create_text(self.screen_width/2.7, self.num_cells_view_y*32 + 20, anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
+		self.menu_text = self.canvas.create_text(self.screen_width/2.7, self.num_cells_view_y*self.cell_size + 20, anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
+		
+		# Set control menu
+		self.control_menu = self.menu.get_control_menu()
+		
+		# Variables for configuring the display of the buttons
+		init_x = self.screen_width/1.6
+		init_y = self.num_cells_view_y*self.cell_size + 20
+		btn_width = self.cell_size*1.8
+		btn_height = self.cell_size
+
+		# Place buttons on menu
+		buttons = self.control_menu.get_buttons()
+		num_btns = self.control_menu.get_num_btns()
+		for i in range(num_btns):
+			btn = buttons[i]
+			btn.place(x = init_x + btn_width*(i%4) , y = init_y+btn_height*(i/4), width = btn_width, height = btn_height*1.2, anchor=tk.NW)
 
 	'''
 		Updates the game graphics with the correct icons
@@ -80,11 +96,22 @@ class Screen(tk.Tk):
 		Updates the game menu with the correct information
 	'''
 	def update_menu(self):
-		# Update Menu Text
+		###### Update Menu Text ###### 
 		selected_cells = self.grid.get_selected()
 		self.canvas.itemconfig(self.menu_text, text=self.menu.get_text(selected_cells))
 
-		print self.menu.get_available_actions(selected_cells)
+		###### Update Menu Buttons ######
+		# Get available actions from the selected cells
+		available_actions = self.menu.get_available_actions(selected_cells)
+		self.control_menu.update_buttons(available_actions)
+
+
+
+	'''
+		Button Callback
+	'''
+	def btn_callback(self):
+		print 'CALLBACK'
 
 	'''
 		Moves the screen in the given direction by x cells

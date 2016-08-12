@@ -13,7 +13,7 @@ class Control_Menu():
 		# Number of buttons
 		self.num_btns = 16
 		# Initialize the buttons
-		self.buttons = [ tk.Button(text = "", command = "") for i in range(self.num_btns) ]
+		self.buttons = [ tk.Button(text = "", command = "", state = "disabled") for i in range(self.num_btns) ]
 
 		# Last set of actions
 		self.last_actions = []

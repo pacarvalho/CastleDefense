@@ -55,15 +55,19 @@ class Grid:
 
 		TODO: Add actions types!
 	'''
-	def set_action(self,x,y):
+	def set_action(self,x,y,action):
 
 		# Update the list of selected obejects
 		self.get_selected()
 
-		for coord,cell in self.selected_cells.items():
-			path = self.calculate_path(coord[0],coord[1],x,y)
+		# Move to the given location
+		if action == 'move':
+			for coord,cell in self.selected_cells.items():
+				path = self.calculate_path(coord[0],coord[1],x,y)
 
-			cell.set_motion_path(path)
+				cell.set_motion_path(path)
+		elif action == '':
+			print 'NO ACTION SELECTED'
 
 
 	'''

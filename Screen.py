@@ -171,8 +171,11 @@ class Screen(tk.Tk):
 		Set a given cell with an action
 	'''
 	def set_action_cell(self, cell_x, cell_y):
+		# Get the currently selected action
+		action = self.menu.get_control_menu().get_current_action()
+
 		# Set this cell in the grid to be highlighted
-		self.grid.set_action(cell_x, cell_y)
+		self.grid.set_action(cell_x, cell_y,action)
 
 
 

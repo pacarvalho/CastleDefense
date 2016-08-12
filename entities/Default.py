@@ -18,12 +18,9 @@ class Default(EntityBase):
 
 		# default icon
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/grass.gif')
-		
+
 		# All available actions
 		self.available_actions = []
-
-		# Can construct the following buildings
-		self.available_buildings = []
 
 	# Returns the action range of this entity
 	def get_range(self):

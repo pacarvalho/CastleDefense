@@ -9,9 +9,9 @@ class KeyHandler:
 		self.screen = screen
 
 		self.screen.bind("<Key>", self.handler)
-		self.screen.bind("<Button-1>", self.left_click_handler)
-		self.screen.bind("<Shift-Button-1>", self.left_shift_click_handler)
-		self.screen.bind("<Button-2>", self.right_click_handler) # Right Click
+		self.screen.canvas.bind("<Button-1>", self.left_click_handler)
+		self.screen.canvas.bind("<Shift-Button-1>", self.left_shift_click_handler)
+		self.screen.canvas.bind("<Button-2>", self.right_click_handler) # Right Click
 
 	def handler(self,event):
 		# Pressing forward should move field of vision up

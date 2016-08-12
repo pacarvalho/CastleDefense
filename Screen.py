@@ -30,13 +30,21 @@ class Screen(tk.Tk):
 		self.screen_width = 1000
 		self.screen_height = 800
 
+		# Offset from screent to game
+		self.screen_x_offset = self.screen_width/2 - (self.num_cells_view_x*self.cell_size)/2
+		self.screen_y_offset = 7
+
 		# Create a frame
 		self.frame = tk.Frame(self, width=self.screen_width, height=self.screen_height)
 		self.frame.pack()
 
-		# Create the canvas to draw on
-		self.canvas = tk.Canvas(self.frame, width=self.screen_width, height=self.screen_height)
-		self.canvas.place(x=self.screen_width/2 - (self.num_cells_view_x*self.cell_size)/2, y=7)
+		# Create the canvas for the game scene
+		self.canvas = tk.Canvas(self.frame, width=self.num_cells_view_x*self.cell_size, height=self.num_cells_view_y*self.cell_size)
+		self.canvas.place(x=self.screen_x_offset, y=self.screen_y_offset)
+
+		# Create the canvas for the game menu
+		self.menu_canvas = tk.Canvas(self.frame, width=self.num_cells_view_x*self.cell_size, height=self.num_cells_view_y*self.cell_size)
+		self.menu_canvas.place(x=self.screen_x_offset, y=self.screen_y_offset + self.num_cells_view_y*self.cell_size)
 
 
 	'''
@@ -55,10 +63,10 @@ class Screen(tk.Tk):
 		self.menu = menu
 
 		# Keep references to all images that can appear on the screen
-		self.canvas_menu = self.canvas.create_image(0, self.num_cells_view_y*32, anchor=tk.NW, image=self.menu.get_icon())
+		self.menu_on_canvas = self.menu_canvas.create_image(0, 0, anchor=tk.NW, image=self.menu.get_icon())
 		
 		# Set initial menu text
-		self.menu_text = self.canvas.create_text(self.screen_width/2.7, self.num_cells_view_y*self.cell_size + 20, anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
+		self.menu_text = self.menu_canvas.create_text(self.cell_size, self.cell_size + 20, anchor=tk.NW, text = self.menu.get_text({}), font=("Helvetica", 18) )
 		
 		# Set control menu
 		self.control_menu = self.menu.get_control_menu()
@@ -92,26 +100,22 @@ class Screen(tk.Tk):
 		# Update the menu
 		self.update_menu()
 
+		# Update the size of the screen in case the user has changed it
+		self.screen_height = self.winfo_height()
+		self.screen_width = self.winfo_width()
+
 	'''
 		Updates the game menu with the correct information
 	'''
 	def update_menu(self):
 		###### Update Menu Text ###### 
 		selected_cells = self.grid.get_selected()
-		self.canvas.itemconfig(self.menu_text, text=self.menu.get_text(selected_cells))
+		self.menu_canvas.itemconfig(self.menu_text, text=self.menu.get_text(selected_cells))
 
 		###### Update Menu Buttons ######
 		# Get available actions from the selected cells
 		available_actions = self.menu.get_available_actions(selected_cells)
-		self.control_menu.update_buttons(available_actions)
-
-
-
-	'''
-		Button Callback
-	'''
-	def btn_callback(self):
-		print 'CALLBACK'
+		self.control_menu.update(available_actions)
 
 	'''
 		Moves the screen in the given direction by x cells
@@ -141,8 +145,8 @@ class Screen(tk.Tk):
 	'''
 	def get_clicked_cell(self, click_x, click_y):
 		# Calculate the cell based on the mouse click
-		cell_in_view_X = int(math.floor(click_x/32))
-		cell_in_view_Y = int(math.floor(click_y/32))
+		cell_in_view_X = int(math.floor((click_x)/self.cell_size))
+		cell_in_view_Y = int(math.floor((click_y)/self.cell_size))
 
 		cell_in_grid_X = cell_in_view_X + self.current_view_x 
 		cell_in_grid_Y = cell_in_view_Y + self.current_view_y

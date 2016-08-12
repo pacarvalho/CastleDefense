@@ -64,8 +64,8 @@ class Screen(tk.Tk):
 		self.control_menu = self.menu.get_control_menu()
 		
 		# Variables for configuring the display of the buttons
-		init_x = self.screen_width/1.6
-		init_y = self.num_cells_view_y*self.cell_size + 20
+		init_x = self.screen_width/1.52
+		init_y = self.num_cells_view_y*self.cell_size + 19
 		btn_width = self.cell_size*1.8
 		btn_height = self.cell_size
 
@@ -74,7 +74,7 @@ class Screen(tk.Tk):
 		num_btns = self.control_menu.get_num_btns()
 		for i in range(num_btns):
 			btn = buttons[i]
-			btn.place(x = init_x + btn_width*(i%4) , y = init_y+btn_height*(i/4), width = btn_width, height = btn_height*1.2, anchor=tk.NW)
+			btn.place(x = init_x + btn_width*(i%4) , y = init_y+btn_height*(i/4), width = btn_width, height = btn_height, anchor=tk.NW)
 
 	'''
 		Updates the game graphics with the correct icons

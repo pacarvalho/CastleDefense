@@ -66,9 +66,9 @@ class Grid:
 				path = self.calculate_path(coord[0],coord[1],x,y)
 
 				cell.set_motion_path(path)
-		elif action == '':
-			print 'NO ACTION SELECTED'
-
+		else:
+			print 'Action not defined: ' + action
+ 
 
 	'''
 		Calculates a clear path between two locations on the grid

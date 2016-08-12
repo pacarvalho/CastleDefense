@@ -7,6 +7,7 @@
 '''
 import Tkinter as tk
 from copy import deepcopy
+from functools import partial
 
 class Control_Menu():
 	def __init__(self):
@@ -29,10 +30,15 @@ class Control_Menu():
 		if(set(actions) != set(self.last_actions)):
 			# Update local copy of available actions
 			self.last_actions = deepcopy(actions)
+
+			# If move is available, set it as default action
+			if 'move' in self.last_actions:
+				self.selected_action = 'move'
 			
 			for i in range(self.num_btns):
-				if (len(actions) > i):
-					self.buttons[i].config(text=actions[i])
+				if (len(self.last_actions) > i):
+					self.buttons[i].config(text=self.last_actions[i],state = "normal")
+					self.buttons[i].config(command=partial(self.set_current_action,self.last_actions[i]))
 				else:
 					self.buttons[i].config(state = "disabled")
 

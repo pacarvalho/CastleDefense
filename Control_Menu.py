@@ -24,7 +24,7 @@ class Control_Menu():
 				if (len(actions) > i):
 					self.buttons[i].config(text=actions[i])
 				else:
-					self.buttons[i].config(text=" ")
+					self.buttons[i].config(state = "disabled")
 
 	def get_buttons(self):
 		return self.buttons

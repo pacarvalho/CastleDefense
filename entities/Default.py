@@ -20,7 +20,7 @@ class Default(EntityBase):
 		self.default_icon = ImageTk.PhotoImage(file='entities/icons/grass.gif')
 
 		# All available actions
-		self.available_actions = []
+		self.available_actions = {}
 
 	# Returns the action range of this entity
 	def get_range(self):

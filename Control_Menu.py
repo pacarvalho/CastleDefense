@@ -17,7 +17,7 @@ class Control_Menu():
 		self.buttons = [ tk.Button(text = "", command = "", state = "disabled") for i in range(self.num_btns) ]
 
 		# Last set of actions
-		self.last_actions = []
+		self.last_actions = {}
 
 		# Action that is currently selected
 		self.selected_action = ''
@@ -33,40 +33,47 @@ class Control_Menu():
 			# Update local copy of available actions
 			self.last_actions = deepcopy(actions)
 
-			# Get the base actions
-			base_actions = [action.split('-')[0] for action in self.last_actions]
-
-			# Remove repeats
-			# TODO: Implement a method that does not loose the order
-			base_actions = list(set(base_actions))
+			# # Get the base actions
+			# base_actions = [action.split('-')[0] for action in self.last_actions]
 
 			# If move is available, set it as default action
-			if 'move' in base_actions:
-				self.selected_action = 'move'
+			if 'move' in self.last_actions.keys():
+				self.selected_action = ('move',[])
 
 			# Update the buttons
-			self.update_buttons(base_actions)
+			self.update_buttons(self.last_actions.keys(), [])
 
+	'''
+		TODO: Add HERE!!
+	'''
 	def update_sub_buttons(self,action):
-		subactions = []
-		for act in self.last_actions:
-			if action == act.split('-')[0]:
-				subactions += [act.split('-')[1]]
+		subactions = self.last_actions[action]
 
-		self.update_buttons(subactions)
+		self.update_buttons([action],subactions)
 		
 
 
 	'''
 		Updates the buttons to the currenlty available actions
 	'''
-	def update_buttons(self, unique_actions):	
-		for i in range(self.num_btns):
-			if (len(unique_actions) > i):
-				self.buttons[i].config(text=unique_actions[i],state = "normal")
-				self.buttons[i].config(command=partial(self.set_current_action,unique_actions[i]))
-			else:
-				self.buttons[i].config(state = "disabled")
+	def update_buttons(self, actions, subactions):
+		# Subaction menu
+		if (len(subactions) > 0):	
+			for i in range(self.num_btns):
+				if (len(subactions) > i):
+					self.buttons[i].config(text=subactions[i],state = "normal")
+					self.buttons[i].config(command=partial(self.set_current_action,(actions[0],subactions[i])))
+				else:
+					self.buttons[i].config(state = "disabled")
+
+		# Top level
+		else:
+			for i in range(self.num_btns):
+				if (len(actions) > i):
+					self.buttons[i].config(text=actions[i],state = "normal")
+					self.buttons[i].config(command=partial(self.set_current_action,(actions[i],'')))
+				else:
+					self.buttons[i].config(state = "disabled")
 
 	'''
 		Returns the buttons 
@@ -90,13 +97,13 @@ class Control_Menu():
 	'''
 		Sets the current action
 	'''
-	def set_current_action(self,action):
-		if action == 'build':
-			self.update_sub_buttons(action)
-			self.selected_action = 'move'
+	def set_current_action(self,action_tuple):
+		if action_tuple[0] == 'build' and action_tuple[1] == '':
+			self.update_sub_buttons(action_tuple[0])
+			self.selected_action = ('move',[])
 			return 
-			
-		self.selected_action = action
+
+		self.selected_action = action_tuple
 
 				
 

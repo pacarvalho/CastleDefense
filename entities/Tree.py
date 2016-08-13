@@ -23,7 +23,7 @@ class Tree(EntityBase):
 		self.isClicked = False
 
 		# All available actions
-		self.available_actions = []
+		self.available_actions = {}
 
 	# Returns the action range of this entity
 	def get_range(self):

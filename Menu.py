@@ -45,16 +45,18 @@ class Menu	:
 		if len(selected_cells) == 0:
 			return []
 
-		# Get a list of lists for available actions
+		# Get a list of dictionaries for available actions
 		valid_actions = [cell.get_available_actions() for cell in selected_cells.values()]
 
 		if len(valid_actions) > 1:
 			# Get the intersection of the sets
+			# TODO: Improve this so that subactions are intersected
 			result = set(valid_actions[0])
 			for c in valid_actions[1:]:
 				result.intersection_update(c)
 			return list(result)
     	
+    	# If there is only one cell selected
 		return valid_actions[0]
 
 	def get_control_menu(self):

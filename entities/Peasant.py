@@ -35,7 +35,7 @@ class Peasant(EntityBase):
 		self.speed = 1
 
 		# All available actions
-		self.available_actions = ['move','build-house','build-wall','attack']
+		self.available_actions = {'move':[],'build':['house','wall']}
 
 	# Returns the action range of this entity
 	def get_range(self):

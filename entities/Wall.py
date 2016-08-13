@@ -35,7 +35,7 @@ class Wall(EntityBase):
 		self.speed = 0
 
 		# All available actions
-		self.available_actions = []
+		self.available_actions = {}
 
 	# Returns the action range of this entity
 	def get_range(self):

@@ -57,15 +57,27 @@ class Grid:
 	'''
 	def set_action(self,x,y,action):
 
+		print action
+
 		# Update the list of selected obejects
 		self.get_selected()
 
 		# Move to the given location
-		if action == 'move':
+		if action[0] == 'move':
 			for coord,cell in self.selected_cells.items():
 				path = self.calculate_path(coord[0],coord[1],x,y)
 
 				cell.set_motion_path(path)
+
+		elif action[0] == 'build':
+			for coord,cell in self.selected_cells.items():
+				# Move to 1 less than full path
+				path = self.calculate_path(coord[0],coord[1],x,y)
+				cell.set_motion_path(path[0:-1])
+
+			# TODO: Finish implementing this
+
+			print 'Lets build: ' + action[1]
 		else:
 			print 'Action not defined: ' + action
  

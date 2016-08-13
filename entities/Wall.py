@@ -37,6 +37,9 @@ class Wall(EntityBase):
 		# All available actions
 		self.available_actions = {}
 
+		# Destination action - Action to be executed at end of path
+		self.destination_action = tuple(['',''])
+
 	# Returns the action range of this entity
 	def get_range(self):
 		return 0
@@ -87,6 +90,22 @@ class Wall(EntityBase):
 		''' Returns a list of strings with the available actions '''
 		return self.available_actions
 
+	def set_destination_action(self, action):
+		''' Sets the actions to be executed at destination '''
+		self.destination_action = action
+
+	def get_destination_action(self):
+		''' Gets the actions to be executed at destination '''
+		return self.destination_action
+
+	def get_remaining_steps_path(self):
+		''' Number of steps remaining in the path '''
+		return len(self.motion_path)
+
+	def reset_action(self):
+		''' Resets all actions in the entity '''
+		self.destination_action = tuple(['',''])
+		self.motion_path = deque()
 
 
 

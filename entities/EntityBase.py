@@ -62,6 +62,25 @@ class EntityBase():
 		''' Returns a list of strings with the available actions '''
 		return
 
+	@abc.abstractmethod
+	def set_destination_action(self, action):
+		''' Sets the actions to be executed at destination '''
+		return
+
+	@abc.abstractmethod
+	def get_destination_action(self, action):
+		''' Gets the actions to be executed at destination '''
+		return
+
+	@abc.abstractmethod
+	def get_remaining_steps_path(self):
+		''' Number of steps remaining in the path '''
+		return
+
+	@abc.abstractmethod
+	def reset_action(self):
+		''' Resets all actions in the entity '''
+		return
 
 	
 

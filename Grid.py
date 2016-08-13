@@ -71,11 +71,12 @@ class Grid:
 
 		elif action[0] == 'build':
 			for coord,cell in self.selected_cells.items():
-				# Move to 1 less than full path
 				path = self.calculate_path(coord[0],coord[1],x,y)
-				cell.set_motion_path(path[0:-1])
+				
+				cell.set_motion_path(path)
 
-			# TODO: Finish implementing this
+				# Set the action to be executed at the destination
+				cell.set_destination_action(action)
 
 			print 'Lets build: ' + action[1]
 		else:
@@ -164,24 +165,56 @@ class Grid:
 		self.get_selected()
 
 		self.game_cycle += 1
-		self.update_position()
+		self.update_action()
+
+	def update_action(self):
+		for cellArray in self.cells:
+			for cell in cellArray:
+				destination_action = cell.get_destination_action()
+				
+				if destination_action[0] == '':
+					self.update_position(cell)
+				elif destination_action[0] == 'build':
+					# We have arrived at the building location
+					if (cell.get_remaining_steps_path() == 1):
+						# Place building at last position in the path
+						action_pos = cell.get_destination(self.game_cycle)
+
+						# Protect against speed control from entity
+						# TODO: Implement this without the speed control. So entity builds as soon as arriving on path
+						if (len(action_pos) > 0):
+
+							# Only build on top of non blocking objects
+							if not (self.cells[action_pos[0]][action_pos[1]].get_blocking()):
+								self.cells[action_pos[0]][action_pos[1]].set_entity_by_name(destination_action[1])
+
+							# Reset the entity
+							cell.reset_action()
+						
+					else:
+						self.update_position(cell)
 
 	'''
 		Moves all entities one motion step
 
 		Polls the entity to determine if its time for it to move.
 	'''
-	def update_position(self):
-		for cellArray in self.cells:
-			for cell in cellArray:
-				# Check if object should move
-				next_pos = cell.get_destination(self.game_cycle)
+	def update_position(self, cell):
+		# Check if object should move
+		next_pos = cell.get_destination(self.game_cycle)
 
-				if len(next_pos) > 0:
-					isBlocking = self.cells[next_pos[0]][next_pos[1]].get_blocking()
-					if not isBlocking:
-						self.cells[next_pos[0]][next_pos[1]].set_entity(cell.get_entity())
-						cell.delete_entity()
+		if len(next_pos) > 0:
+			isBlocking = self.cells[next_pos[0]][next_pos[1]].get_blocking()
+			if not isBlocking:
+				self.cells[next_pos[0]][next_pos[1]].set_entity(cell.get_entity())
+				cell.delete_entity()
+
+
+
+
+
+
+
 
 
 

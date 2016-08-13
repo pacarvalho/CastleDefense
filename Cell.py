@@ -8,6 +8,9 @@
 '''
 
 from entities.Default import Default
+from entities.Tree import Tree
+from entities.Peasant import Peasant
+from entities.Wall import Wall
 from copy import deepcopy
 
 class Cell:
@@ -20,6 +23,13 @@ class Cell:
 	'''
 	def set_entity(self, entity):
 		self.entity = entity
+
+	'''
+		Sets the entity by string name
+	'''
+	def set_entity_by_name(self,name):
+		if name == 'wall':
+			self.set_entity(Wall())
 
 	'''
 		Gets the current entity in this cell
@@ -90,4 +100,21 @@ class Cell:
 	'''
 	def get_available_actions(self):
 		return self.entity.get_available_actions()
+
+	def set_destination_action(self, action):
+		''' Sets the actions to be executed at destination '''
+		self.entity.set_destination_action(action)
+
+	def get_destination_action(self):
+		''' Gets the actions to be executed at destination '''
+		return self.entity.get_destination_action()
+
+	def get_remaining_steps_path(self):
+		''' Number of steps remaining in the path '''
+		return self.entity.get_remaining_steps_path()
+
+	def reset_action(self):
+		self.entity.reset_action()
+
+
 

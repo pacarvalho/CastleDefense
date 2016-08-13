@@ -37,6 +37,7 @@ class Control_Menu():
 			# base_actions = [action.split('-')[0] for action in self.last_actions]
 
 			# If move is available, set it as default action
+			print self.last_actions
 			if 'move' in self.last_actions.keys():
 				self.selected_action = ('move',[])
 

@@ -37,6 +37,9 @@ class Peasant(EntityBase):
 		# All available actions
 		self.available_actions = {'move':[],'build':['house','wall']}
 
+		# Destination action - Action to be executed at end of path
+		self.destination_action = tuple(['',''])
+
 	# Returns the action range of this entity
 	def get_range(self):
 		return 1
@@ -84,11 +87,30 @@ class Peasant(EntityBase):
 		if (len(self.motion_path) > 0) and (self.last_motion_cycle+self.speed <= game_cycle):
 			self.last_motion_cycle = game_cycle
 			return self.motion_path.popleft()
-		return []
+		return tuple()
 
 	def get_available_actions(self):
 		''' Returns a list of strings with the available actions '''
 		return self.available_actions
+
+	def set_destination_action(self, action):
+		''' Sets the actions to be executed at destination '''
+		self.destination_action = action
+
+	def get_destination_action(self):
+		''' Gets the actions to be executed at destination '''
+		return self.destination_action
+
+	def get_remaining_steps_path(self):
+		''' Number of steps remaining in the path '''
+		return len(self.motion_path)
+
+	def reset_action(self):
+		''' Resets all actions in the entity '''
+		self.destination_action = tuple(['',''])
+		self.motion_path = deque()
+
+
 
 
 

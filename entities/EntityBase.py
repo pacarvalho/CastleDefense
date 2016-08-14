@@ -82,6 +82,11 @@ class EntityBase():
 		''' Resets all actions in the entity '''
 		return
 
+	@abc.abstractmethod
+	def get_player(self):
+		''' Returns the player to whom this entity belongs '''
+		return
+
 	
 
 

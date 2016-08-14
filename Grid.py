@@ -174,6 +174,7 @@ class Grid:
 		for cellArray in self.cells:
 			for cell in cellArray:
 				destination_action = cell.get_destination_action()
+				player = cell.get_player()
 				
 				if destination_action[0] == '':
 					self.update_position(cell)
@@ -189,7 +190,7 @@ class Grid:
 
 							# Only build on top of non blocking objects
 							if not (self.cells[action_pos[0]][action_pos[1]].get_blocking()):
-								self.cells[action_pos[0]][action_pos[1]].set_entity_by_name(destination_action[1])
+								self.cells[action_pos[0]][action_pos[1]].set_entity_by_name(destination_action[1],player)
 
 							# Reset the entity
 							cell.reset_action()

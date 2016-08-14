@@ -12,11 +12,13 @@ from entities.Tree import Tree
 from entities.Peasant import Peasant
 from entities.Wall import Wall
 from copy import deepcopy
+from Player import Player
 
 class Cell:
 	def __init__(self):
 		# Contains playing object. Ex: Soldier, wall, etc
-		self.entity = Default()
+		self.entity = Default(Player())
+
 
 	'''
 		Sets the current entity in this cell
@@ -27,9 +29,9 @@ class Cell:
 	'''
 		Sets the entity by string name
 	'''
-	def set_entity_by_name(self,name):
+	def set_entity_by_name(self,name,player):
 		if name == 'wall':
-			self.set_entity(Wall())
+			self.set_entity(Wall(player))
 
 	'''
 		Gets the current entity in this cell
@@ -41,7 +43,7 @@ class Cell:
 		Deletes the current entity on this cell
 	'''
 	def delete_entity(self):
-		self.entity = Default()
+		self.entity = Default(Player())
 
 
 	'''
@@ -115,6 +117,10 @@ class Cell:
 
 	def reset_action(self):
 		self.entity.reset_action()
+
+	def get_player(self):
+		''' Returns the player to whom the underlying entity belongs '''
+		return self.entity.get_player()
 
 
 

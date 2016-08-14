@@ -11,7 +11,7 @@ from copy import deepcopy
 from collections import deque
 
 class Wall(EntityBase):
-	def __init__(self):
+	def __init__(self, player):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = True
 
@@ -39,6 +39,9 @@ class Wall(EntityBase):
 
 		# Destination action - Action to be executed at end of path
 		self.destination_action = tuple(['',''])
+
+		# Belongs to player
+		self.player = player
 
 	# Returns the action range of this entity
 	def get_range(self):
@@ -106,6 +109,10 @@ class Wall(EntityBase):
 		''' Resets all actions in the entity '''
 		self.destination_action = tuple(['',''])
 		self.motion_path = deque()
+
+	def get_player(self):
+		''' Returns the player to whom this entity belongs '''
+		return self.player
 
 
 

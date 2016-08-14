@@ -18,3 +18,8 @@ class Team:
 		''' Returns a list of players in this team '''
 		return self.players
 
+	def get_first_player(self):
+		''' Gets the first player in the team '''
+		return self.players[0]
+
+

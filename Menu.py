@@ -35,6 +35,7 @@ class Menu	:
 			description = entity.get_description()
 			hitpoints = entity.get_hitpoints()
 			text = description + "\n\nHitpoints: " + str(hitpoints) 
+
 			return text
 
 		# Else dont display anything

@@ -9,7 +9,7 @@ from PIL import ImageTk
 from EntityBase import EntityBase
 
 class Default(EntityBase):
-	def __init__(self):
+	def __init__(self, player):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = False
 
@@ -24,6 +24,9 @@ class Default(EntityBase):
 
 		# Destination action - Action to be executed at end of path
 		self.destination_action = tuple(['',''])
+
+		# Belongs to player
+		self.player = player
 
 	# Returns the action range of this entity
 	def get_range(self):
@@ -80,6 +83,10 @@ class Default(EntityBase):
 	def reset_action(self):
 		''' Resets all actions in the entity '''
 		return
+
+	def get_player(self):
+		''' Returns the player to whom this entity belongs '''
+		return self.player
 
 
 

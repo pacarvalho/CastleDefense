@@ -7,7 +7,7 @@
 '''
 
 class Player:
-	def __init__(self,name):
+	def __init__(self, name='Neutral'):
 		# Player Name
 		self.name = name
 
@@ -27,3 +27,7 @@ class Player:
 			self.resources[resource] -= amount
 			return True
 		return False
+
+	def get_name(self):
+		''' Returns the player name '''
+		return self.name

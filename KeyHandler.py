@@ -5,8 +5,11 @@
 '''
 
 class KeyHandler:
-	def __init__(self, screen):
+	def __init__(self, screen, router):
 		self.screen = screen
+
+		# Game router
+		self.router = router
 
 		self.screen.bind("<Key>", self.handler)
 		self.screen.canvas.bind("<Button-1>", self.left_click_handler)
@@ -50,7 +53,7 @@ class KeyHandler:
 		action = self.screen.get_control_menu().get_current_action()
 
 		# Set this cell in the grid to be highlighted
-		self.screen.get_grid().set_action(location[0],location[1], action)
+		self.router.set_action(location[0],location[1], action)
 		
 
 

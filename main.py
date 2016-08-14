@@ -11,17 +11,21 @@ from Grid import Grid
 from Menu import Menu
 from KeyHandler import KeyHandler
 from ManualMapCreator import ManualMapCreator
+from Router import Router
 
 # Intantiate the screen
 screen = Screen()
-
-# Instantiate the key handler
-keyHandler = KeyHandler(screen)
 
 # Instantiate the grid with its default cells
 manualMapCreator = ManualMapCreator()
 grid = Grid(manualMapCreator.get_cell_array(),manualMapCreator.get_teams())
 screen.set_grid(grid)
+
+# Router class that keeps track of players over network
+router = Router(grid,manualMapCreator.get_local_player())
+
+# Instantiate the key handler
+keyHandler = KeyHandler(screen,router)
 
 # Instatiate the menu with default values
 menu = Menu()

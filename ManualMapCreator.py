@@ -19,6 +19,7 @@ class ManualMapCreator:
 		# Create Players and teams
 		teamN = Team('Neutral',[Player('Neutral')])
 		team1 = Team('Team 1',[Player('Player 1')])
+		self.team1 = team1
 		team2 = Team('Team 2',[Player('Player 2')])
 		self.teams = [teamN,team2]
 
@@ -68,3 +69,9 @@ class ManualMapCreator:
 	'''
 	def get_teams(self):
 		return self.teams
+
+	'''
+		Returns the local player
+	'''
+	def get_local_player(self):
+		return self.team1.get_first_player()

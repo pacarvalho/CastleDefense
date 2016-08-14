@@ -65,7 +65,7 @@ class Control_Menu():
 					self.buttons[i].config(text=subactions[i],state = "normal")
 					self.buttons[i].config(command=partial(self.set_current_action,(actions[0],subactions[i])))
 				else:
-					self.buttons[i].config(state = "disabled")
+					self.buttons[i].config(text = '', state = "disabled")
 
 		# Top level
 		else:
@@ -74,7 +74,7 @@ class Control_Menu():
 					self.buttons[i].config(text=actions[i],state = "normal")
 					self.buttons[i].config(command=partial(self.set_current_action,(actions[i],'')))
 				else:
-					self.buttons[i].config(state = "disabled")
+					self.buttons[i].config(text = '', state = "disabled")
 
 	'''
 		Returns the buttons 

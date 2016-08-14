@@ -66,9 +66,7 @@ class Grid:
 		# Check to whom the selected entities belong
 		# Only allow actions on entitiy belonging to current player
 		ownership = [cell.get_player().get_name() for cell in self.selected_cells.values()]
-		print ownership
 		if not ((len(set(ownership)) == 1) and ownership[0] == player.get_name()):
-			print "FAILED"
 			return
 
 		# Move to the given location

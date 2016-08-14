@@ -22,4 +22,8 @@ class Team:
 		''' Gets the first player in the team '''
 		return self.players[0]
 
+	def get_are_allies(self, player1, player2):
+		''' If both players are in the team returns true '''
+		return (player1 in self.players) and (player2 in self.players)
+
 

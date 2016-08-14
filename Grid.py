@@ -69,25 +69,14 @@ class Grid:
 		if not ((len(set(ownership)) == 1) and ownership[0] == player.get_name()):
 			return
 
-		# Move to the given location
-		if action[0] == 'move':
-			for coord,cell in self.selected_cells.items():
-				path = self.calculate_path(coord[0],coord[1],x,y)
+		for coord,cell in self.selected_cells.items():
+			path = self.calculate_path(coord[0],coord[1],x,y)
+			
+			cell.set_motion_path(path)
 
-				cell.set_motion_path(path)
+			# Set the action to be executed at the destination
+			cell.set_destination_action(action)
 
-		elif action[0] == 'build':
-			for coord,cell in self.selected_cells.items():
-				path = self.calculate_path(coord[0],coord[1],x,y)
-				
-				cell.set_motion_path(path)
-
-				# Set the action to be executed at the destination
-				cell.set_destination_action(action)
-
-			print 'Lets build: ' + action[1]
-		else:
-			print 'Action not defined: ' + action
  
 
 	'''
@@ -111,7 +100,7 @@ class Grid:
 		current_path = current[1]
 		checked_nodes = current[2]
 
-		current_neighbors = self.get_neighbors(current_node[0],current_node[1])
+		current_neighbors = self.get_neighbors(current_node[0],current_node[1],1)
 		for n in current_neighbors:
 			# If we have found the destination
 			if ((n[0] == des_x) and (n[1] == des_y)):
@@ -131,13 +120,13 @@ class Grid:
 
 		Returns as coordinates
 	'''
-	def get_neighbors(self, cell_x, cell_y):
+	def get_neighbors(self, cell_x, cell_y, radius):
 		# Keeps list of neighbbors
 		neighbors = []
-		for dx in range(-1,2):
+		for dx in range(-radius,radius+1):
 			# Neighbors have to be within the grid
 			if ((cell_x + dx)  < self.num_cells_x) and ((cell_x + dx) > 0):
-				for dy in range(-1,2):
+				for dy in range(-radius,radius+1):
 					# Do not include itself as a neighbor
 					if not ((dx == 0) and (dy == 0)):
 						if ((cell_y + dy)  < self.num_cells_y) and ((cell_y + dy) > 0):
@@ -175,12 +164,16 @@ class Grid:
 		self.update_action()
 
 	def update_action(self):
+		cur_x = -1 # Keeps track of the coordinate of the current cell 
 		for cellArray in self.cells:
+			cur_y = -1 # Keeps track of the coordinate of the current cell 
+			cur_x += 1
 			for cell in cellArray:
+				cur_y += 1
 				destination_action = cell.get_destination_action()
 				player = cell.get_player()
 				
-				if destination_action[0] == '':
+				if destination_action[0] == 'move':
 					self.update_position(cell)
 				elif destination_action[0] == 'build':
 					# We have arrived at the building location
@@ -198,9 +191,24 @@ class Grid:
 
 							# Reset the entity
 							cell.reset_action()
-						
 					else:
 						self.update_position(cell)
+				elif destination_action[0] == 'attack':
+					# Get neighbors within attack range
+					enemy_in_range = False
+					for neighbor in self.get_neighbors(cur_x,cur_y,cell.get_range()):
+						player1 = self.cells[neighbor[0]][neighbor[1]].get_player()
+						player2 = cell.get_player()
+						# Check for alliance
+						if not self.get_are_allies(player1,player2):
+							enemy_in_range = True
+							print "THIS IS A VICIOUS ATTACK"
+							break # Required to stop entity when reaching range
+					if not enemy_in_range: # Move
+						self.update_position(cell)
+
+				else:
+					self.update_position(cell)
 
 	'''
 		Moves all entities one motion step
@@ -216,6 +224,18 @@ class Grid:
 			if not isBlocking:
 				self.cells[next_pos[0]][next_pos[1]].set_entity(cell.get_entity())
 				cell.delete_entity()
+
+	'''
+		Returns true if two players are in the same team
+	'''
+	def get_are_allies(self,player1,player2):
+		# In case we are dealing with neutral player
+		if (player1.get_name() == 'Neutral') or (player2.get_name() == 'Neutral'):
+			return True
+		for team in self.teams:
+			if team.get_are_allies(player1,player2):
+				return True
+		return False
 
 
 

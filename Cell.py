@@ -52,7 +52,7 @@ class Cell:
 		1 for melee
 		>1 for ranged
 	'''
-	def get_range_entity(self):
+	def get_range(self):
 		return self.entity.get_range()
 
 	'''

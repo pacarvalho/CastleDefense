@@ -35,17 +35,17 @@ class Peasant(EntityBase):
 		self.speed = 1
 
 		# All available actions
-		self.available_actions = {'move':[],'build':['house','wall']}
+		self.available_actions = {'move':[],'build':['house','wall'],'attack':[]}
 
 		# Destination action - Action to be executed at end of path
-		self.destination_action = tuple(['',''])
+		self.destination_action = tuple(['move',''])
 
 		# Belongs to player
 		self.player = player
 
 	# Returns the action range of this entity
 	def get_range(self):
-		return 1
+		return 5
 
 	# Returns the image of the current state
 	def get_icon(self):
@@ -110,7 +110,7 @@ class Peasant(EntityBase):
 
 	def reset_action(self):
 		''' Resets all actions in the entity '''
-		self.destination_action = tuple(['',''])
+		self.destination_action = tuple(['move',''])
 		self.motion_path = deque()
 
 	def get_player(self):

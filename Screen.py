@@ -56,6 +56,12 @@ class Screen(tk.Tk):
 		self.canvas_image = [[self.canvas.create_image(x*self.cell_size, y*self.cell_size, anchor=tk.NW, image=self.grid.get_icon(x,y)) for y in range(self.num_cells_view_y)] for x in range(self.num_cells_view_x)]
 
 	'''
+		Returns the game grid
+	'''
+	def get_grid(self):
+		return self.grid
+
+	'''
 		Sets the grid for the game
 	'''
 	def set_menu(self, menu):
@@ -160,24 +166,14 @@ class Screen(tk.Tk):
 		if (cell_in_grid_Y > self.current_view_y + self.num_cells_view_y-1):
 			cell_in_grid_Y = self.current_view_y + self.num_cells_view_y-1
 
-		return (cell_in_grid_X,cell_in_grid_Y)		
+		return (cell_in_grid_X,cell_in_grid_Y)	
 
 	'''
-		Sets a given cell as selected
-	'''
-	def set_clicked_cell(self, cell_x, cell_y, isMultiple):
-		# Set this cell in the grid to be highlighted
-		self.grid.set_selected(cell_x, cell_y, isMultiple)
+		Returns the control menu
+	'''	
+	def get_control_menu(self):
+		return self.menu.get_control_menu()
 
-	'''
-		Set a given cell with an action
-	'''
-	def set_action_cell(self, cell_x, cell_y):
-		# Get the currently selected action
-		action = self.menu.get_control_menu().get_current_action()
-
-		# Set this cell in the grid to be highlighted
-		self.grid.set_action(cell_x, cell_y,action)
 
 
 

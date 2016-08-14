@@ -30,7 +30,7 @@ class KeyHandler:
 	def left_click_handler(self,event):
 		# Standard click (Without Shift Key)
 		location = self.screen.get_clicked_cell(event.x, event.y)
-		self.screen.set_clicked_cell(location[0],location[1], False)
+		self.screen.get_grid().set_selected(location[0],location[1], False)
 		
 		# Call the update graphics
 		self.screen.update_graphics()
@@ -38,14 +38,19 @@ class KeyHandler:
 	def left_shift_click_handler(self,event):
 		# Standard click (With Shift Key)
 		location = self.screen.get_clicked_cell(event.x, event.y)
-		self.screen.set_clicked_cell(location[0],location[1], True)
+		self.screen.get_grid().set_selected(location[0],location[1], True)
 		
 		# Call the update graphics
 		self.screen.update_graphics()
 
 	def right_click_handler(self,event):
 		location = self.screen.get_clicked_cell(event.x, event.y)
-		self.screen.set_action_cell(location[0],location[1])
+
+		# Get the currently selected action
+		action = self.screen.get_control_menu().get_current_action()
+
+		# Set this cell in the grid to be highlighted
+		self.screen.get_grid().set_action(location[0],location[1], action)
 		
 
 

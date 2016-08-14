@@ -22,8 +22,6 @@ class Control_Menu():
 		# Action that is currently selected
 		self.selected_action = ''
 
-		# Menu that is currently being displayed
-
 	'''
 		Updates the control menu
 	'''

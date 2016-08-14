@@ -10,9 +10,16 @@ from entities.Tree import Tree
 from entities.Peasant import Peasant
 from entities.Wall import Wall
 from Cell import Cell
+from Player import Player
+from Team import Team
 
 class ManualMapCreator:
 	def __init__(self):
+
+		# Create Players and teams
+		team1 = Team('Team 1',[Player('Neutral')])
+		team2 = Team('Team 2',[Player('Player 1')])
+		self.teams = [team1,team2]
 
 		# Maps are always square
 		self.map_size = 100
@@ -54,3 +61,9 @@ class ManualMapCreator:
 	'''
 	def get_cell_array(self):
 		return self.cellArray
+
+	'''
+		Returns the players
+	'''
+	def get_teams(self):
+		return self.teams

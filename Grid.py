@@ -9,7 +9,10 @@ from Queue import Queue
 from copy import deepcopy
 
 class Grid:
-	def __init__(self, cells):
+	def __init__(self, cells, teams):
+		# List of teams
+		self.teams = teams
+
 		# Array of cells (2D Array)
 		self.cells = cells
 

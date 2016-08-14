@@ -20,7 +20,7 @@ keyHandler = KeyHandler(screen)
 
 # Instantiate the grid with its default cells
 manualMapCreator = ManualMapCreator()
-grid = Grid(manualMapCreator.get_cell_array())
+grid = Grid(manualMapCreator.get_cell_array(),manualMapCreator.get_teams())
 screen.set_grid(grid)
 
 # Instatiate the menu with default values

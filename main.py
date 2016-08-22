@@ -44,6 +44,8 @@ def run():
 	# Calls this function periodically
 	screen.after(200, lambda: run())	
 
+	print "IM DONE"
+
 # Calls the run method for the first time
 run()
 

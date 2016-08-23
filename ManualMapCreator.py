@@ -9,6 +9,7 @@ from entities.Default import Default
 from entities.Tree import Tree
 from entities.Peasant import Peasant
 from entities.Wall import Wall
+from entities.ScoutTower import ScoutTower
 from Cell import Cell
 from Player import Player
 from Team import Team
@@ -21,7 +22,7 @@ class ManualMapCreator:
 		team1 = Team('Team 1',[Player('Player 1')])
 		self.team1 = team1
 		team2 = Team('Team 2',[Player('Player 2')])
-		self.teams = [teamN,team2]
+		self.teams = [teamN,team1,team2]
 
 		# Maps are always square
 		self.map_size = 100
@@ -48,6 +49,7 @@ class ManualMapCreator:
 			self.cellArray[i][20].set_entity(Tree(Player()))
 		self.cellArray[10][15].set_entity(Default(Player()))
 		self.cellArray[13][13].set_entity(Peasant(team1.get_first_player()))
+		self.cellArray[14][14].set_entity(Peasant(team1.get_first_player()))
 
 		# Add a line of wall
 		for i in range(5,30):
@@ -57,6 +59,10 @@ class ManualMapCreator:
 		# Add some peasants
 		self.cellArray[5][5].set_entity(Peasant(team2.get_first_player()))
 		self.cellArray[7][7].set_entity(Peasant(team2.get_first_player()))
+
+		# Add a tower
+		self.cellArray[30][30].set_entity(ScoutTower(team2.get_first_player()))
+
 
 	'''
 		Returns the cell array

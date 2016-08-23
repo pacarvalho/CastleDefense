@@ -10,17 +10,17 @@ from EntityBase import EntityBase
 from copy import deepcopy
 from collections import deque
 
-class Peasant(EntityBase):
-	def __init__(self):
+class ScoutTower(EntityBase):
+	def __init__(self, player):
 		# Does this cell block others from stepping on it or going through?
 		self.blocking = True
 
 		# Entity description
-		self.description = "Peasant"
+		self.description = "Scout Tower 1"
 
 		# Icons
-		self.default_icon = ImageTk.PhotoImage(file='entities/icons/peasant.gif')
-		self.highlight_icon = ImageTk.PhotoImage(file='entities/icons/peasant_highlight.gif')
+		self.default_icon = ImageTk.PhotoImage(file='entities/icons/scout_tower_1.gif')
+		self.highlight_icon = ImageTk.PhotoImage(file='entities/icons/scout_tower_1_highlight.gif')
 
 		# Is the entity currently clicked?
 		self.isClicked = False
@@ -28,14 +28,21 @@ class Peasant(EntityBase):
 		# Current motion path
 		self.motion_path = deque()
 
-		# Last time this entity moved
+		# Last time this entity moved and attacked
 		self.last_motion_cycle = 0
+		self.last_attack_cycle = 0
 
 		# Speed of the entity in game iterations
-		self.speed = 1
+		self.speed = 0
 
 		# All available actions
-		self.available_actions = ['move','build-house','build-wall','attack']
+		self.available_actions = {'attack':[]}
+
+		# Destination action - Action to be executed at end of path
+		self.destination_action = tuple(['attack',''])
+
+		# Belongs to player
+		self.player = player
 
 		# Attack speed of the entity in game iterations
 		self.attack_speed = 3
@@ -48,7 +55,7 @@ class Peasant(EntityBase):
 
 	# Returns the action range of this entity
 	def get_range(self):
-		return 1
+		return 10
 
 	# Returns the image of the current state
 	def get_icon(self):
@@ -94,6 +101,31 @@ class Peasant(EntityBase):
 			self.last_motion_cycle = game_cycle
 			return self.motion_path.popleft()
 		return []
+
+	def get_available_actions(self):
+		''' Returns a list of strings with the available actions '''
+		return self.available_actions
+
+	def set_destination_action(self, action):
+		''' Sets the actions to be executed at destination '''
+		self.destination_action = action
+
+	def get_destination_action(self):
+		''' Gets the actions to be executed at destination '''
+		return self.destination_action
+
+	def get_remaining_steps_path(self):
+		''' Number of steps remaining in the path '''
+		return len(self.motion_path)
+
+	def reset_action(self):
+		''' Resets all actions in the entity '''
+		self.destination_action = tuple(['attack',''])
+		self.motion_path = deque()
+
+	def get_player(self):
+		''' Returns the player to whom this entity belongs '''
+		return self.player
 
 	def get_available_actions(self):
 		''' Returns a list of strings with the available actions '''

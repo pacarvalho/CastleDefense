@@ -31,6 +31,15 @@ class Tree(EntityBase):
 		# Belongs to player
 		self.player = player
 
+		# Attack speed of the entity in game iterations
+		self.attack_speed = 0
+
+		# Attack damage of the entity
+		self.attack_damage = 0
+
+		# Current and Maximum hitpoints of the entity (cur,max)
+		self.hitpoints = [150,150]
+
 	# Returns the action range of this entity
 	def get_range(self):
 		return 0
@@ -41,7 +50,7 @@ class Tree(EntityBase):
 
 	def get_hitpoints(self):
 		''' Returns the current hitpoints of the entity '''
-		return 150
+		return self.hitpoints
 
 	def get_description(self):
 		''' Returns the current hitpoints of the entity '''
@@ -90,6 +99,35 @@ class Tree(EntityBase):
 	def get_player(self):
 		''' Returns the player to whom this entity belongs '''
 		return self.player
+
+	def get_attack_damage(self, game_cycle):
+		''' Returns the attack damage of this entity for this iteration '''
+		if (self.last_attack_cycle+self.attack_speed) <= game_cycle:
+			self.last_attack_cycle = game_cycle
+			return self.attack_damage
+		return 0
+
+	def deduct_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Return False when entity has 0 hitpoints
+		'''
+		self.hitpoints[0] -= value
+		if (self.hitpoints[0] <= 0):
+			self.hitpoints[0] = 0
+			return False
+		return True
+
+	def increment_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Returns false once entity has full HP
+		'''
+		self.hitpoints[0] += value
+		if (self.hitpoints[0] >= self.hitpoints[1]):
+			self.hitpoints[0] = self.hitpoints[1]
+			return False
+		return True
 
 		
 

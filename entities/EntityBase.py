@@ -87,6 +87,27 @@ class EntityBase():
 		''' Returns the player to whom this entity belongs '''
 		return
 
+	@abc.abstractmethod
+	def get_attack_damage(self, game_cycle):
+		''' Returns the attack damage of this entity for this iteration '''
+		return
+
+	@abc.abstractmethod
+	def deduct_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Return False when entity has 0 hitpoints
+		'''
+		return
+
+	@abc.abstractmethod
+	def increment_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Returns false once entity has full HP
+		'''
+		return
+
 	
 
 

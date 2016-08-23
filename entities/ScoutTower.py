@@ -37,6 +37,15 @@ class Peasant(EntityBase):
 		# All available actions
 		self.available_actions = ['move','build-house','build-wall','attack']
 
+		# Attack speed of the entity in game iterations
+		self.attack_speed = 3
+
+		# Attack damage of the entity
+		self.attack_damage = 30
+
+		# Current and Maximum hitpoints of the entity (cur,max)
+		self.hitpoints = [500,500]
+
 	# Returns the action range of this entity
 	def get_range(self):
 		return 1
@@ -52,7 +61,7 @@ class Peasant(EntityBase):
 
 	def get_hitpoints(self):
 		''' Returns the current hitpoints of the entity '''
-		return 100
+		return self.hitpoints
 
 	def get_description(self):
 		''' Returns the current hitpoints of the entity '''
@@ -89,6 +98,35 @@ class Peasant(EntityBase):
 	def get_available_actions(self):
 		''' Returns a list of strings with the available actions '''
 		return self.available_actions
+
+	def get_attack_damage(self, game_cycle):
+		''' Returns the attack damage of this entity for this iteration '''
+		if (self.last_attack_cycle+self.attack_speed) <= game_cycle:
+			self.last_attack_cycle = game_cycle
+			return self.attack_damage
+		return 0
+
+	def deduct_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Return False when entity has 0 hitpoints
+		'''
+		self.hitpoints[0] -= value
+		if (self.hitpoints[0] <= 0):
+			self.hitpoints[0] = 0
+			return False
+		return True
+
+	def increment_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Returns false once entity has full HP
+		'''
+		self.hitpoints[0] += value
+		if (self.hitpoints[0] >= self.hitpoints[1]):
+			self.hitpoints[0] = self.hitpoints[1]
+			return False
+		return True
 
 
 

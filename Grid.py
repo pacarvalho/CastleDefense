@@ -202,13 +202,31 @@ class Grid:
 						# Check for alliance
 						if not self.get_are_allies(player1,player2):
 							enemy_in_range = True
-							print "THIS IS A VICIOUS ATTACK"
+							self.attack_helper(cell,self.cells[neighbor[0]][neighbor[1]])
 							break # Required to stop entity when reaching range
-					if not enemy_in_range: # Move
+					if not enemy_in_range: # Move if no one is in range
 						self.update_position(cell)
 
 				else:
 					self.update_position(cell)
+
+	'''
+		Attack Routine
+
+		Reduces the HP of the attack receiver by the 
+		Damage per Iteration of the attacker
+	'''
+	def attack_helper(self,attacker,attackee):
+		damage = attacker.get_attack_damage(self.game_cycle)
+
+		# Do the damage. Is the entity still alive?
+		is_alive = attackee.deduct_hitpoints(damage)
+
+		# Replace entity with default
+		if not is_alive:
+			attackee.delete_entity()
+
+
 
 	'''
 		Moves all entities one motion step

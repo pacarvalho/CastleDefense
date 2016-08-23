@@ -122,5 +122,23 @@ class Cell:
 		''' Returns the player to whom the underlying entity belongs '''
 		return self.entity.get_player()
 
+	def get_attack_damage(self, game_cycle):
+		''' Returns the attack damage of this entity for this iteration '''
+		return self.entity.get_attack_damage(game_cycle)
+
+	def deduct_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Return False when entity has 0 hitpoints
+		'''
+		return self.entity.deduct_hitpoints(value)
+
+	def increment_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Returns false once entity has full HP
+		'''
+		return self.entity.increment_hitpoints(value)
+
 
 

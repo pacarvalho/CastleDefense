@@ -28,10 +28,11 @@ class Peasant(EntityBase):
 		# Current motion path
 		self.motion_path = deque()
 
-		# Last time this entity moved
+		# Last time this entity moved and attacked
 		self.last_motion_cycle = 0
+		self.last_attack_cycle = 0
 
-		# Speed of the entity in game iterations
+		# Motion speed of the entity in game iterations
 		self.speed = 1
 
 		# All available actions
@@ -42,6 +43,15 @@ class Peasant(EntityBase):
 
 		# Belongs to player
 		self.player = player
+
+		# Attack speed of the entity in game iterations
+		self.attack_speed = 2
+
+		# Attack damage of the entity
+		self.attack_damage = 5
+
+		# Current and Maximum hitpoints of the entity (cur,max)
+		self.hitpoints = [100,100]
 
 	# Returns the action range of this entity
 	def get_range(self):
@@ -58,7 +68,7 @@ class Peasant(EntityBase):
 
 	def get_hitpoints(self):
 		''' Returns the current hitpoints of the entity '''
-		return 100
+		return self.hitpoints
 
 	def get_description(self):
 		''' Returns the current hitpoints of the entity '''
@@ -117,6 +127,34 @@ class Peasant(EntityBase):
 		''' Returns the player to whom this entity belongs '''
 		return self.player
 
+	def get_attack_damage(self, game_cycle):
+		''' Returns the attack damage of this entity for this iteration '''
+		if (self.last_attack_cycle+self.attack_speed) <= game_cycle:
+			self.last_attack_cycle = game_cycle
+			return self.attack_damage
+		return 0
+
+	def deduct_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Return False when entity has 0 hitpoints
+		'''
+		self.hitpoints[0] -= value
+		if (self.hitpoints[0] <= 0):
+			self.hitpoints[0] = 0
+			return False
+		return True
+
+	def increment_hitpoints(self,value):
+		''' 
+			Number of hitpoints to deduct 
+			Returns false once entity has full HP
+		'''
+		self.hitpoints[0] += value
+		if (self.hitpoints[0] >= self.hitpoints[1]):
+			self.hitpoints[0] = self.hitpoints[1]
+			return False
+		return True
 
 
 

@@ -36,7 +36,7 @@ class Peasant(EntityBase):
 		self.speed = 1
 
 		# All available actions
-		self.available_actions = {'move':[],'build':['house','wall'],'attack':[]}
+		self.available_actions = {'move':[],'build':['house','wall','scout tower'],'attack':[]}
 
 		# Destination action - Action to be executed at end of path
 		self.destination_action = tuple(['attack',''])

@@ -11,6 +11,7 @@ from entities.Default import Default
 from entities.Tree import Tree
 from entities.Peasant import Peasant
 from entities.Wall import Wall
+from entities.ScoutTower import ScoutTower
 from copy import deepcopy
 from Player import Player
 
@@ -32,6 +33,8 @@ class Cell:
 	def set_entity_by_name(self,name,player):
 		if name == 'wall':
 			self.set_entity(Wall(player))
+		elif name == 'scout tower':
+			self.set_entity(ScoutTower(player))
 
 	'''
 		Gets the current entity in this cell

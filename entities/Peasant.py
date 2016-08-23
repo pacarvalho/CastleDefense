@@ -39,16 +39,16 @@ class Peasant(EntityBase):
 		self.available_actions = {'move':[],'build':['house','wall'],'attack':[]}
 
 		# Destination action - Action to be executed at end of path
-		self.destination_action = tuple(['move',''])
+		self.destination_action = tuple(['attack',''])
 
 		# Belongs to player
 		self.player = player
 
 		# Attack speed of the entity in game iterations
-		self.attack_speed = 2
+		self.attack_speed = 5
 
 		# Attack damage of the entity
-		self.attack_damage = 5
+		self.attack_damage = 1
 
 		# Current and Maximum hitpoints of the entity (cur,max)
 		self.hitpoints = [100,100]

@@ -25,6 +25,9 @@ class Grid:
 		# Keeps track of the current game cycle
 		self.game_cycle = 0
 
+		# Coordinates of attack and attackee pairs (attacker_x,attacker_y,attackee_x,atttackee_y)
+		self.attack_pairs_list = []
+
 	'''
 		Gets the correct icons from the cells at a specific 
 		x,y coordinate in the grid
@@ -160,6 +163,9 @@ class Grid:
 		# Get the list of currenlty selected cells
 		self.get_selected()
 
+		# Reset the attack Pair list
+		self.attack_pairs_list = []
+
 		self.game_cycle += 1
 		self.update_action()
 
@@ -202,7 +208,12 @@ class Grid:
 						# Check for alliance
 						if not self.get_are_allies(player1,player2):
 							enemy_in_range = True
-							self.attack_helper(cell,self.cells[neighbor[0]][neighbor[1]])
+							has_damaged = self.attack_helper(cell,self.cells[neighbor[0]][neighbor[1]])
+
+							# Update the attacker list
+							if has_damaged:
+								self.attack_pairs_list += [tuple([cur_x,cur_y,neighbor[0],neighbor[1]])]
+
 							break # Required to stop entity when reaching range
 					if not enemy_in_range: # Move if no one is in range
 						self.update_position(cell)
@@ -225,6 +236,11 @@ class Grid:
 		# Replace entity with default
 		if not is_alive:
 			attackee.delete_entity()
+
+		# If damage was done return true
+		if damage > 0:
+			return True
+		return False
 
 
 
@@ -254,6 +270,12 @@ class Grid:
 			if team.get_are_allies(player1,player2):
 				return True
 		return False
+
+	'''
+		Returns the attacker list pairs
+	'''
+	def get_attack_pairs_list(self):
+		return self.attack_pairs_list
 
 
 

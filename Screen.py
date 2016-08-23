@@ -46,6 +46,9 @@ class Screen(tk.Tk):
 		self.menu_canvas = tk.Canvas(self.frame, width=self.num_cells_view_x*self.cell_size, height=self.num_cells_view_y*self.cell_size)
 		self.menu_canvas.place(x=self.screen_x_offset, y=self.screen_y_offset + self.num_cells_view_y*self.cell_size)
 
+		# Stores the lines for the attack animation
+		self.attack_lines = []
+
 	'''
 		Sets the grid for the game
 	'''
@@ -93,7 +96,7 @@ class Screen(tk.Tk):
 		Updates the game graphics with the correct icons
 	'''
 	def update_graphics(self):
-		# Update view of World
+		# Update Cell Icons
 		count_x = -1
 		for x in range(self.current_view_x,self.current_view_x+self.num_cells_view_x):
 			count_x += 1
@@ -101,6 +104,45 @@ class Screen(tk.Tk):
 			for y in range(self.current_view_y,self.current_view_y+self.num_cells_view_y):
 				count_y += 1
 				self.canvas.itemconfig(self.canvas_image[count_x][count_y],image=self.grid.get_icon(x,y))
+
+		# Erase the current lines
+		for line in self.attack_lines:
+			self.canvas.delete(line)
+		self.attack_lines = []
+
+		# Update the attack animation
+		for attack_pair in self.grid.get_attack_pairs_list():
+			# Get coordinates 
+			attack_x = attack_pair[0] - self.current_view_x 
+			attack_y = attack_pair[1] - self.current_view_y 
+			attacked_x = attack_pair[2] - self.current_view_x 
+			attacked_y = attack_pair[3] - self.current_view_y 
+
+			# Check if both cells are within the viewing screen
+			if (attack_x > self.num_cells_view_x):
+				pass
+			elif (attacked_x > self.num_cells_view_x):
+		 		pass
+		 	elif (attack_x < 0):
+		 		pass
+		 	elif (attacked_x < 0):
+		 		pass
+			elif (attack_y > self.num_cells_view_y):
+				pass
+			elif (attacked_y > self.num_cells_view_y):
+				pass
+			elif (attack_y < 0): 
+				pass
+			elif (attacked_y < 0):
+				pass
+			else: # All tests passed
+				line = self.canvas.create_line(
+							(attack_x+0.5)*self.cell_size,
+							(attack_y+0.5)*self.cell_size,
+							(attacked_x+0.5)*self.cell_size,
+							(attacked_y+0.5)*self.cell_size)
+				self.attack_lines += [line]
+
 
 		# Update the menu
 		self.update_menu()

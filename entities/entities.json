@@ -1,0 +1,82 @@
+{
+	"peasant" : {
+		"blocking" : 1,
+		"name" : "peasant",
+		"default_icon" : "entities/icons/peasant.gif",
+		"highlight_icon" : "entities/icons/peasant_highlight.gif",
+		"movement_speed" : 3,
+		"available_actions" : {
+			"move":[],
+			"attack":[],
+			"build":["house","wall","scout tower"]
+		},
+		"default_action" : ["attack",""],
+		"attack_speed" : 10,
+		"attack_damage" : 5,
+		"attack_range" : 1,
+		"start_hitpoints" : 100,
+		"max_hitpoints" : 100
+	},
+	"default" : {
+		"blocking" : 0,
+		"name" : "default",
+		"default_icon" : "entities/icons/grass.gif",
+		"highlight_icon" : "entities/icons/grass.gif",
+		"movement_speed" : 0,
+		"available_actions" : {
+		},
+		"default_action" : ["",""],
+		"attack_speed" : 0,
+		"attack_damage" : 0,
+		"attack_range" : 0,
+		"start_hitpoints" : 100,
+		"max_hitpoints" : 100
+	},
+	"scout tower" : {
+		"blocking" : 1,
+		"name" : "scout tower",
+		"default_icon" : "entities/icons/scout_tower_1.gif",
+		"highlight_icon" : "entities/icons/scout_tower_1_highlight.gif",
+		"movement_speed" : 0,
+		"available_actions" : {
+			"attack" : []
+		},
+		"default_action" : ["attack",""],
+		"attack_speed" : 5,
+		"attack_damage" : 30,
+		"attack_range" : 5,
+		"start_hitpoints" : 500,
+		"max_hitpoints" : 500
+	},
+	"tree" : {
+		"blocking" : 1,
+		"name" : "tree",
+		"default_icon" : "entities/icons/tree.gif",
+		"highlight_icon" : "entities/icons/tree.gif",
+		"movement_speed" : 0,
+		"available_actions" : {
+		},
+		"default_action" : ["",""],
+		"attack_speed" : 0,
+		"attack_damage" : 0,
+		"attack_range" : 0,
+		"start_hitpoints" : 100,
+		"max_hitpoints" : 100
+	},
+	"wall" : {
+		"blocking" : 1,
+		"name" : "wall",
+		"default_icon" : "entities/icons/wall.gif",
+		"highlight_icon" : "entities/icons/wall.gif",
+		"movement_speed" : 0,
+		"available_actions" : {
+		},
+		"default_action" : ["",""],
+		"attack_speed" : 0,
+		"attack_damage" : 0,
+		"attack_range" : 0,
+		"start_hitpoints" : 1000,
+		"max_hitpoints" : 1000
+	}
+
+}

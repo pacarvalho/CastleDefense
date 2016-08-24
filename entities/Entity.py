@@ -1,7 +1,7 @@
 '''
-	Castle Defense Entity - Peasant
+	Castle Defense Entity - Entity
 
-	Peasant
+	Becomes a specific entity determined by config file
 
 	By Katie and Paulo
 '''
@@ -10,17 +10,19 @@ from EntityBase import EntityBase
 from copy import deepcopy
 from collections import deque
 
-class Peasant(EntityBase):
-	def __init__(self, player):
+class Entity(EntityBase):
+	def __init__(self, player, config):
+		self.config = config
+
 		# Does this cell block others from stepping on it or going through?
-		self.blocking = True
+		self.blocking = self.config['blocking']
 
 		# Entity description
-		self.description = "Peasant"
+		self.description = self.config['name']
 
 		# Icons
-		self.default_icon = ImageTk.PhotoImage(file='entities/icons/peasant.gif')
-		self.highlight_icon = ImageTk.PhotoImage(file='entities/icons/peasant_highlight.gif')
+		self.default_icon = ImageTk.PhotoImage(file=self.config['default_icon'])
+		self.highlight_icon = ImageTk.PhotoImage(file=self.config['highlight_icon'])
 
 		# Is the entity currently clicked?
 		self.isClicked = False
@@ -33,29 +35,30 @@ class Peasant(EntityBase):
 		self.last_attack_cycle = 0
 
 		# Motion speed of the entity in game iterations
-		self.speed = 1
+		self.speed = self.config['movement_speed']
 
 		# All available actions
-		self.available_actions = {'move':[],'build':['house','wall','scout tower'],'attack':[]}
+		self.available_actions = self.config['available_actions']
 
 		# Destination action - Action to be executed at end of path
-		self.destination_action = tuple(['attack',''])
+		self.destination_action = tuple(self.config['default_action'])
 
 		# Belongs to player
 		self.player = player
 
 		# Attack speed of the entity in game iterations
-		self.attack_speed = 5
+		# And other attack properties
+		self.attack_speed = self.config['attack_speed']
+		self.attack_damage = self.config['attack_damage']
+		self.attack_range = self.config['attack_range']
 
-		# Attack damage of the entity
-		self.attack_damage = 1
 
 		# Current and Maximum hitpoints of the entity (cur,max)
-		self.hitpoints = [100,100]
+		self.hitpoints = [self.config['start_hitpoints'],self.config['max_hitpoints']]
 
 	# Returns the action range of this entity
 	def get_range(self):
-		return 5
+		return self.attack_range
 
 	# Returns the image of the current state
 	def get_icon(self):
@@ -120,7 +123,7 @@ class Peasant(EntityBase):
 
 	def reset_action(self):
 		''' Resets all actions in the entity '''
-		self.destination_action = tuple(['move',''])
+		self.destination_action = tuple(self.config['available_actions'])
 		self.motion_path = deque()
 
 	def get_player(self):

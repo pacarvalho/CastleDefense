@@ -7,19 +7,21 @@
 	By Paulo and Katie
 '''
 
-from entities.Default import Default
-from entities.Tree import Tree
-from entities.Peasant import Peasant
-from entities.Wall import Wall
-from entities.ScoutTower import ScoutTower
+from entities.Entity import Entity
 from copy import deepcopy
 from Player import Player
+import json
 
 class Cell:
 	def __init__(self):
-		# Contains playing object. Ex: Soldier, wall, etc
-		self.entity = Default(Player())
+		self.entities = {}
 
+		# Import JSON Definition File
+		with open('entities/entities.json', 'r') as data_file:
+			self.entities = json.load(data_file)
+
+		# Contains playing object. Ex: Soldier, wall, etc
+		self.entity = Entity(Player(),self.entities['default'])
 
 	'''
 		Sets the current entity in this cell
@@ -31,10 +33,7 @@ class Cell:
 		Sets the entity by string name
 	'''
 	def set_entity_by_name(self,name,player):
-		if name == 'wall':
-			self.set_entity(Wall(player))
-		elif name == 'scout tower':
-			self.set_entity(ScoutTower(player))
+		self.set_entity(Entity(player,self.entities[name]))
 
 	'''
 		Gets the current entity in this cell
@@ -46,7 +45,7 @@ class Cell:
 		Deletes the current entity on this cell
 	'''
 	def delete_entity(self):
-		self.entity = Default(Player())
+		self.entity = Entity(Player(),self.entities['default'])
 
 
 	'''

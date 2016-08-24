@@ -98,25 +98,30 @@ class Grid:
 		calculate_path helper
 	'''
 	def helper_calculate_path(self,des_x,des_y,queue):
-		current = queue.get()
-		current_node = current[0]
-		current_path = current[1]
-		checked_nodes = current[2]
 
-		current_neighbors = self.get_neighbors(current_node[0],current_node[1],1)
-		for n in current_neighbors:
-			# If we have found the destination
-			if ((n[0] == des_x) and (n[1] == des_y)):
-				return current_path + [n]
+		while not queue.empty():
+			current = queue.get()
+			current_node = current[0]
+			current_path = current[1]
+			checked_nodes = current[2]
 
-			# If neightbor is not already in the path
-			# If neighbor is passable
-			if (n not in checked_nodes) and not (self.cells[n[0]][n[1]].get_blocking()):
-				path = deepcopy(current_path) + [n]
-				checked_nodes += [n]
-				queue.put((n,path,checked_nodes))
+			current_neighbors = self.get_neighbors(current_node[0],current_node[1],1)
 
-		return self.helper_calculate_path(des_x,des_y,queue)
+			for n in current_neighbors:
+				# If we have found the destination
+				if ((n[0] == des_x) and (n[1] == des_y)):
+					return current_path + [n]
+
+				# If neighbor is not already in the path
+				# If neighbor is passable
+				if (n not in checked_nodes) and not (self.cells[n[0]][n[1]].get_blocking()):
+					path = deepcopy(current_path) + [n]
+					checked_nodes += [n]
+					queue.put((n,path,checked_nodes))
+
+		print "Error- No Path To Destination Was Found"
+		return None
+
 
 	'''
 		Returns the direct neighbors of a cell
